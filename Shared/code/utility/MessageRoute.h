@@ -14,7 +14,7 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
-
+using namespace google;
 
 #define TEMP_BUFFER_SIZE 4096
 
@@ -30,8 +30,7 @@ public:
 
 	void Receive(asio::streambuf& buf);
 
-	template <typename  T>//	where T: public protobuf::Message
-	bool Send(T* msg);
+	bool Send(std::shared_ptr<protobuf::Message> spmsg);
 
 
 	std::function<void(asio::streambuf&)> m_fSendFunc;
@@ -40,7 +39,8 @@ private:
 	void Process();
 
 
-	asio::streambuf mDataStream;
+	asio::streambuf mDataStreamReceive;
+	asio::streambuf mDataStreamSend;
 
 	char mTempBuffer[TEMP_BUFFER_SIZE];
 

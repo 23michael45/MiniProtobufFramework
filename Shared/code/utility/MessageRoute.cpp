@@ -11,19 +11,19 @@ using namespace google;
 
 
 
-protobuf::Message *createMessage(const std::string &type_name)
+std::shared_ptr<protobuf::Message> createMessage(const std::string &type_name)
 {
-	protobuf::Message* message = NULL;
+	auto pmsg = std::shared_ptr<protobuf::Message>(NULL);
 	const protobuf::Descriptor* descriptor =
 		protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(type_name);
 	if (descriptor) {
 		const protobuf::Message* prototype =
 			protobuf::MessageFactory::generated_factory()->GetPrototype(descriptor);
 		if (prototype) {
-			message = prototype->New();
+			pmsg = std::shared_ptr<protobuf::Message>(prototype->New());
 		}
 	}
-	return message;
+	return pmsg;
 }
 
 MessageRoute::MessageRoute()
@@ -35,7 +35,7 @@ void MessageRoute::Receive(asio::streambuf& buf)
 	std::istream is(&buf);
 	std::istreambuf_iterator<char> isb(is), end;
 
-	std::ostreambuf_iterator<char> osb(&mDataStream);
+	std::ostreambuf_iterator<char> osb(&mDataStreamReceive);
 
 	
 
@@ -48,12 +48,12 @@ void MessageRoute::Receive(asio::streambuf& buf)
 void MessageRoute::Process()
 {
 
-	std::istream is(&mDataStream);
+	std::istream is(&mDataStreamReceive);
 
 	is.read(mTempBuffer, sizeof(int));
 	int totalLen = *(int*)mTempBuffer;
 
-	if (mDataStream.size() < totalLen - 4)
+	if (mDataStreamReceive.size() < totalLen - 4)
 	{
 		return;
 	}
@@ -70,23 +70,22 @@ void MessageRoute::Process()
 
 	int bodyLen = totalLen - headLen - 8;
 	is.read(mTempBuffer, bodyLen);
-	protobuf::Message* msg = createMessage(cmdType.type());
+	auto spmsg = createMessage(cmdType.type());
 
-	msg->ParseFromArray(mTempBuffer,bodyLen);
-	string stype = msg->GetTypeName();
+	spmsg->ParseFromArray(mTempBuffer,bodyLen);
 	cout << cmdType.type() << "\n" << endl;
 
-	Send(msg);
+	Send(spmsg);
+
+	spmsg.reset();
 	
 }
 
-template <typename  T>//	where T: public protobuf::Message
-bool MessageRoute::Send(T* msg)
+bool MessageRoute::Send(std::shared_ptr<protobuf::Message> spmsg)
 {
-	protobuf::Message *m = reinterpret_cast<protobuf::Message*>(msg);
-	string stype = m->GetTypeName();
+	string stype = spmsg->GetTypeName();
 
-	int bodylen = m->ByteSize();
+	int bodylen = spmsg->ByteSize();
 
 
 	CmdType cmdType;
@@ -96,8 +95,7 @@ bool MessageRoute::Send(T* msg)
 
 	int headlen = cmdType.ByteSize();
 
-	asio::streambuf sb;
-	std::ostream os(&sb);
+	std::ostream os(&mDataStreamSend);
 
 	int totallen = 8 + headlen + bodylen;
 
@@ -109,10 +107,10 @@ bool MessageRoute::Send(T* msg)
 
 
 	std::string bodystring;
-	m->SerializeToOstream(&os);
+	spmsg->SerializeToOstream(&os);
 
 
-	m_fSendFunc(sb);
+	m_fSendFunc(mDataStreamSend);
 
 
 	return true;
