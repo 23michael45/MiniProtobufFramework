@@ -1,0 +1,15 @@
+#include "BaseSocketConnection.h"
+
+BaseSocketConnection::BaseSocketConnection()
+{
+	m_pMessageRoute.m_fSendFunc = std::bind(&BaseSocketConnection::SendData, this, std::placeholders::_1);
+}
+
+void BaseSocketConnection::ReadData(asio::streambuf& buf)
+{
+	m_pMessageRoute.Receive(buf);
+}
+void BaseSocketConnection::SendData(asio::streambuf& buf)
+{
+	std::cout << "Base Send" << std::endl;
+}
