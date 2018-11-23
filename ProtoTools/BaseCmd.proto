@@ -1,0 +1,53 @@
+syntax = "proto2";
+
+package BaseCmd;
+
+
+message CmdType
+{
+	required string type = 1;
+	required int32 size = 2;
+	optional string fromip = 3;
+	optional string toip = 4;
+}
+
+
+
+message notifyConnectionStatus{
+	enum eConnectionStatus {
+		ConnectSuccess = 0;
+		ConnectFailed = 1;
+		ConnectionLost = 2;
+    }
+	required eConnectionStatus status = 1;
+}
+
+
+
+message sUser {
+  required string name = 1;
+  required int32 id = 2;
+  optional string email = 3;
+
+  enum ePhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message ePhoneNumber {
+    required string number = 1;
+    optional ePhoneType type = 2 [default = HOME];
+  }
+
+  repeated ePhoneNumber phones = 4;
+}
+
+message reqSignin {
+  repeated sUser user = 1;
+}
+message rspSignin
+{
+  required string name = 1;
+  required bool succ = 2;
+}

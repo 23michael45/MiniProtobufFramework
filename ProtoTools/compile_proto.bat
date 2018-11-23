@@ -1,0 +1,1 @@
+protoc BaseCmd.proto --cpp_out=../Shared/code/protobuf/
