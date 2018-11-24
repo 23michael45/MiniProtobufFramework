@@ -11,12 +11,19 @@ class TcpConnection
 	: public std::enable_shared_from_this<TcpConnection>,public BaseSocketConnection
 {
 public:
-	typedef std::shared_ptr<TcpConnection> pointer;
-
-	static pointer create(asio::io_context& io_context)
+	TcpConnection(asio::io_context& io_context, std::shared_ptr<MessageRoute> spmr)
+		: BaseSocketConnection(spmr), socket_(io_context)
 	{
-		return pointer(new TcpConnection(io_context));
 	}
+	TcpConnection(asio::io_context& io_context)
+		: socket_(io_context), BaseSocketConnection(std::shared_ptr<MessageRoute>(new MessageRoute()))
+	{
+	}
+	~TcpConnection()
+	{
+
+	}
+
 
 	tcp::socket& socket()
 	{
@@ -36,14 +43,8 @@ public:
 	
 
 private:
-	TcpConnection(asio::io_context& io_context)
-		: socket_(io_context)
-	{
-	}
-
 	tcp::socket socket_;
 	asio::streambuf input_buffer_;
-	char bufread[256];
 
 };
 
@@ -59,15 +60,14 @@ public:
 private:
 	void start_accept()
 	{
-		TcpConnection::pointer new_connection =
-			TcpConnection::create(acceptor_.get_executor().context());
+		std::shared_ptr<TcpConnection> new_connection(new TcpConnection(acceptor_.get_executor().context()));
 
 		acceptor_.async_accept(new_connection->socket(),
 			std::bind(&TcpServer::handle_accept, this, new_connection,
 				std::placeholders::_1));
 	}
 
-	void handle_accept(TcpConnection::pointer new_connection,
+	void handle_accept(std::shared_ptr<TcpConnection> new_connection,
 		const asio::error_code& error)
 	{
 		if (!error)

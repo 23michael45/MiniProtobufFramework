@@ -9,6 +9,7 @@ std::string make_daytime_string()
 
 void TcpConnection::start()
 {
+	std::cout << "Connection Established!" << std::endl;
 	std::string timestring  = make_daytime_string();
 	// Start reading messages from the server
 	start_read();
@@ -28,6 +29,21 @@ void TcpConnection::start_read()
 
 
 }
+
+
+void TcpConnection::handle_write(const asio::error_code& error/*error*/,
+	size_t size/*bytes_transferred*/)
+{
+}
+
+void TcpConnection::SendData(asio::streambuf& buf)
+{
+	asio::async_write(socket_, buf,
+		std::bind(&TcpConnection::handle_write, shared_from_this(),
+			std::placeholders::_1,
+			std::placeholders::_2));
+}
+
 // When stream is received, handle the message from the client
 void TcpConnection::handle_read(const asio::error_code& ec)
 {
@@ -41,17 +57,4 @@ void TcpConnection::handle_read(const asio::error_code& ec)
 	{
 		std::cout << "Error on receive: " << ec.message() << "\n";
 	}
-}
-
-void TcpConnection::handle_write(const asio::error_code& error/*error*/,
-	size_t size/*bytes_transferred*/)
-{
-}
-
-void TcpConnection::SendData(asio::streambuf& buf)
-{
-	asio::async_write(socket_, buf,
-		std::bind(&TcpConnection::handle_write, shared_from_this(),
-			std::placeholders::_1,
-			std::placeholders::_2));
 }

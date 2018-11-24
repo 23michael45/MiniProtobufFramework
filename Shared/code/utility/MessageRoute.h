@@ -29,11 +29,14 @@ public:
 	
 
 	void Receive(asio::streambuf& buf);
+	bool Send(protobuf::Message& spmsg);
 
-	bool Send(std::shared_ptr<protobuf::Message> spmsg);
 
 
 	std::function<void(asio::streambuf&)> m_fSendFunc;
+	asio::streambuf& GetSendBuffer() {
+		return mDataStreamSend;
+	}
 private:
 
 	void Process();

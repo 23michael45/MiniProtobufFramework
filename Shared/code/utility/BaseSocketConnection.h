@@ -9,16 +9,18 @@
 class BaseSocketConnection 
 {
 public: 
-	BaseSocketConnection();
-	
+	BaseSocketConnection(std::shared_ptr<MessageRoute> spmr);
+	~BaseSocketConnection()
+	{
+		m_spMessageRoute.reset();
+	}
 	virtual void ReadData(asio::streambuf& buf);
 	virtual void SendData(asio::streambuf& buf);
 
 
-private:
 
-
-	MessageRoute m_pMessageRoute;
+protected:
+	std::shared_ptr<MessageRoute> m_spMessageRoute;
 };
 
 #endif

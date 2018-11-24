@@ -37,8 +37,6 @@ void MessageRoute::Receive(asio::streambuf& buf)
 
 	std::ostreambuf_iterator<char> osb(&mDataStreamReceive);
 
-	
-
 	while (isb != end)
 		*osb++ = *isb++;
 
@@ -75,17 +73,18 @@ void MessageRoute::Process()
 	spmsg->ParseFromArray(mTempBuffer,bodyLen);
 	cout << cmdType.type() << "\n" << endl;
 
-	Send(spmsg);
 
 	spmsg.reset();
 	
 }
 
-bool MessageRoute::Send(std::shared_ptr<protobuf::Message> spmsg)
+bool MessageRoute::Send(protobuf::Message& msg)
 {
-	string stype = spmsg->GetTypeName();
 
-	int bodylen = spmsg->ByteSize();
+
+	string stype = msg.GetTypeName();
+
+	int bodylen = msg.ByteSize();
 
 
 	CmdType cmdType;
@@ -107,11 +106,9 @@ bool MessageRoute::Send(std::shared_ptr<protobuf::Message> spmsg)
 
 
 	std::string bodystring;
-	spmsg->SerializeToOstream(&os);
-
+	msg.SerializeToOstream(&os);
 
 	m_fSendFunc(mDataStreamSend);
-
 
 	return true;
 }
