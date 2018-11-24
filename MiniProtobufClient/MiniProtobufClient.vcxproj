@@ -76,9 +76,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)../Shared/asio/asio/include;$(ProjectDir)../Shared/protobuf/src;$(ProjectDir)../Shared/code/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../Shared/;$(ProjectDir)../Shared/protobuf/src;$(ProjectDir)../Shared\asio\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ASIO_STANDALONE ;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(ProjectDir)../Shared/lib/Win32/libprotocd.lib;$(ProjectDir)../Shared/lib/Win32/libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -122,6 +122,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Shared\code\protobuf\BaseCmd.pb.cc" />
+    <ClCompile Include="..\Shared\code\utility\BaseSocketConnection.cpp" />
+    <ClCompile Include="..\Shared\code\utility\MessageRoute.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TcpClient.cpp" />
   </ItemGroup>

@@ -39,7 +39,7 @@ namespace protobuf_BaseCmd_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[6];
+  static const ::google::protobuf::internal::ParseTable schema[10];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -53,9 +53,21 @@ extern CmdTypeDefaultTypeInternal _CmdType_default_instance_;
 class notifyConnectionStatus;
 class notifyConnectionStatusDefaultTypeInternal;
 extern notifyConnectionStatusDefaultTypeInternal _notifyConnectionStatus_default_instance_;
+class reqAlarm;
+class reqAlarmDefaultTypeInternal;
+extern reqAlarmDefaultTypeInternal _reqAlarm_default_instance_;
+class reqMove;
+class reqMoveDefaultTypeInternal;
+extern reqMoveDefaultTypeInternal _reqMove_default_instance_;
 class reqSignin;
 class reqSigninDefaultTypeInternal;
 extern reqSigninDefaultTypeInternal _reqSignin_default_instance_;
+class rspAlarm;
+class rspAlarmDefaultTypeInternal;
+extern rspAlarmDefaultTypeInternal _rspAlarm_default_instance_;
+class rspMove;
+class rspMoveDefaultTypeInternal;
+extern rspMoveDefaultTypeInternal _rspMove_default_instance_;
 class rspSignin;
 class rspSigninDefaultTypeInternal;
 extern rspSigninDefaultTypeInternal _rspSignin_default_instance_;
@@ -70,7 +82,11 @@ namespace google {
 namespace protobuf {
 template<> ::BaseCmd::CmdType* Arena::CreateMaybeMessage<::BaseCmd::CmdType>(Arena*);
 template<> ::BaseCmd::notifyConnectionStatus* Arena::CreateMaybeMessage<::BaseCmd::notifyConnectionStatus>(Arena*);
+template<> ::BaseCmd::reqAlarm* Arena::CreateMaybeMessage<::BaseCmd::reqAlarm>(Arena*);
+template<> ::BaseCmd::reqMove* Arena::CreateMaybeMessage<::BaseCmd::reqMove>(Arena*);
 template<> ::BaseCmd::reqSignin* Arena::CreateMaybeMessage<::BaseCmd::reqSignin>(Arena*);
+template<> ::BaseCmd::rspAlarm* Arena::CreateMaybeMessage<::BaseCmd::rspAlarm>(Arena*);
+template<> ::BaseCmd::rspMove* Arena::CreateMaybeMessage<::BaseCmd::rspMove>(Arena*);
 template<> ::BaseCmd::rspSignin* Arena::CreateMaybeMessage<::BaseCmd::rspSignin>(Arena*);
 template<> ::BaseCmd::sUser* Arena::CreateMaybeMessage<::BaseCmd::sUser>(Arena*);
 template<> ::BaseCmd::sUser_ePhoneNumber* Arena::CreateMaybeMessage<::BaseCmd::sUser_ePhoneNumber>(Arena*);
@@ -1011,6 +1027,463 @@ class rspSignin : public ::google::protobuf::Message /* @@protoc_insertion_point
   bool succ_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class reqMove : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:BaseCmd.reqMove) */ {
+ public:
+  reqMove();
+  virtual ~reqMove();
+
+  reqMove(const reqMove& from);
+
+  inline reqMove& operator=(const reqMove& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  reqMove(reqMove&& from) noexcept
+    : reqMove() {
+    *this = ::std::move(from);
+  }
+
+  inline reqMove& operator=(reqMove&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const reqMove& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const reqMove* internal_default_instance() {
+    return reinterpret_cast<const reqMove*>(
+               &_reqMove_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(reqMove* other);
+  friend void swap(reqMove& a, reqMove& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline reqMove* New() const final {
+    return CreateMaybeMessage<reqMove>(NULL);
+  }
+
+  reqMove* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<reqMove>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const reqMove& from);
+  void MergeFrom(const reqMove& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(reqMove* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required float forward = 1;
+  bool has_forward() const;
+  void clear_forward();
+  static const int kForwardFieldNumber = 1;
+  float forward() const;
+  void set_forward(float value);
+
+  // required float angle = 2;
+  bool has_angle() const;
+  void clear_angle();
+  static const int kAngleFieldNumber = 2;
+  float angle() const;
+  void set_angle(float value);
+
+  // @@protoc_insertion_point(class_scope:BaseCmd.reqMove)
+ private:
+  void set_has_forward();
+  void clear_has_forward();
+  void set_has_angle();
+  void clear_has_angle();
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  float forward_;
+  float angle_;
+  friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class rspMove : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:BaseCmd.rspMove) */ {
+ public:
+  rspMove();
+  virtual ~rspMove();
+
+  rspMove(const rspMove& from);
+
+  inline rspMove& operator=(const rspMove& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  rspMove(rspMove&& from) noexcept
+    : rspMove() {
+    *this = ::std::move(from);
+  }
+
+  inline rspMove& operator=(rspMove&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const rspMove& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const rspMove* internal_default_instance() {
+    return reinterpret_cast<const rspMove*>(
+               &_rspMove_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  void Swap(rspMove* other);
+  friend void swap(rspMove& a, rspMove& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline rspMove* New() const final {
+    return CreateMaybeMessage<rspMove>(NULL);
+  }
+
+  rspMove* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<rspMove>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const rspMove& from);
+  void MergeFrom(const rspMove& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(rspMove* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:BaseCmd.rspMove)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class reqAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:BaseCmd.reqAlarm) */ {
+ public:
+  reqAlarm();
+  virtual ~reqAlarm();
+
+  reqAlarm(const reqAlarm& from);
+
+  inline reqAlarm& operator=(const reqAlarm& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  reqAlarm(reqAlarm&& from) noexcept
+    : reqAlarm() {
+    *this = ::std::move(from);
+  }
+
+  inline reqAlarm& operator=(reqAlarm&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const reqAlarm& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const reqAlarm* internal_default_instance() {
+    return reinterpret_cast<const reqAlarm*>(
+               &_reqAlarm_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  void Swap(reqAlarm* other);
+  friend void swap(reqAlarm& a, reqAlarm& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline reqAlarm* New() const final {
+    return CreateMaybeMessage<reqAlarm>(NULL);
+  }
+
+  reqAlarm* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<reqAlarm>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const reqAlarm& from);
+  void MergeFrom(const reqAlarm& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(reqAlarm* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required string infomessage = 1;
+  bool has_infomessage() const;
+  void clear_infomessage();
+  static const int kInfomessageFieldNumber = 1;
+  const ::std::string& infomessage() const;
+  void set_infomessage(const ::std::string& value);
+  #if LANG_CXX11
+  void set_infomessage(::std::string&& value);
+  #endif
+  void set_infomessage(const char* value);
+  void set_infomessage(const char* value, size_t size);
+  ::std::string* mutable_infomessage();
+  ::std::string* release_infomessage();
+  void set_allocated_infomessage(::std::string* infomessage);
+
+  // @@protoc_insertion_point(class_scope:BaseCmd.reqAlarm)
+ private:
+  void set_has_infomessage();
+  void clear_has_infomessage();
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr infomessage_;
+  friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class rspAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:BaseCmd.rspAlarm) */ {
+ public:
+  rspAlarm();
+  virtual ~rspAlarm();
+
+  rspAlarm(const rspAlarm& from);
+
+  inline rspAlarm& operator=(const rspAlarm& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  rspAlarm(rspAlarm&& from) noexcept
+    : rspAlarm() {
+    *this = ::std::move(from);
+  }
+
+  inline rspAlarm& operator=(rspAlarm&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const rspAlarm& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const rspAlarm* internal_default_instance() {
+    return reinterpret_cast<const rspAlarm*>(
+               &_rspAlarm_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  void Swap(rspAlarm* other);
+  friend void swap(rspAlarm& a, rspAlarm& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline rspAlarm* New() const final {
+    return CreateMaybeMessage<rspAlarm>(NULL);
+  }
+
+  rspAlarm* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<rspAlarm>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const rspAlarm& from);
+  void MergeFrom(const rspAlarm& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(rspAlarm* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:BaseCmd.rspAlarm)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -1686,9 +2159,147 @@ inline void rspSignin::set_succ(bool value) {
   // @@protoc_insertion_point(field_set:BaseCmd.rspSignin.succ)
 }
 
+// -------------------------------------------------------------------
+
+// reqMove
+
+// required float forward = 1;
+inline bool reqMove::has_forward() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void reqMove::set_has_forward() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void reqMove::clear_has_forward() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void reqMove::clear_forward() {
+  forward_ = 0;
+  clear_has_forward();
+}
+inline float reqMove::forward() const {
+  // @@protoc_insertion_point(field_get:BaseCmd.reqMove.forward)
+  return forward_;
+}
+inline void reqMove::set_forward(float value) {
+  set_has_forward();
+  forward_ = value;
+  // @@protoc_insertion_point(field_set:BaseCmd.reqMove.forward)
+}
+
+// required float angle = 2;
+inline bool reqMove::has_angle() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void reqMove::set_has_angle() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void reqMove::clear_has_angle() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void reqMove::clear_angle() {
+  angle_ = 0;
+  clear_has_angle();
+}
+inline float reqMove::angle() const {
+  // @@protoc_insertion_point(field_get:BaseCmd.reqMove.angle)
+  return angle_;
+}
+inline void reqMove::set_angle(float value) {
+  set_has_angle();
+  angle_ = value;
+  // @@protoc_insertion_point(field_set:BaseCmd.reqMove.angle)
+}
+
+// -------------------------------------------------------------------
+
+// rspMove
+
+// -------------------------------------------------------------------
+
+// reqAlarm
+
+// required string infomessage = 1;
+inline bool reqAlarm::has_infomessage() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void reqAlarm::set_has_infomessage() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void reqAlarm::clear_has_infomessage() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void reqAlarm::clear_infomessage() {
+  infomessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_infomessage();
+}
+inline const ::std::string& reqAlarm::infomessage() const {
+  // @@protoc_insertion_point(field_get:BaseCmd.reqAlarm.infomessage)
+  return infomessage_.GetNoArena();
+}
+inline void reqAlarm::set_infomessage(const ::std::string& value) {
+  set_has_infomessage();
+  infomessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:BaseCmd.reqAlarm.infomessage)
+}
+#if LANG_CXX11
+inline void reqAlarm::set_infomessage(::std::string&& value) {
+  set_has_infomessage();
+  infomessage_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:BaseCmd.reqAlarm.infomessage)
+}
+#endif
+inline void reqAlarm::set_infomessage(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  set_has_infomessage();
+  infomessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:BaseCmd.reqAlarm.infomessage)
+}
+inline void reqAlarm::set_infomessage(const char* value, size_t size) {
+  set_has_infomessage();
+  infomessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:BaseCmd.reqAlarm.infomessage)
+}
+inline ::std::string* reqAlarm::mutable_infomessage() {
+  set_has_infomessage();
+  // @@protoc_insertion_point(field_mutable:BaseCmd.reqAlarm.infomessage)
+  return infomessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* reqAlarm::release_infomessage() {
+  // @@protoc_insertion_point(field_release:BaseCmd.reqAlarm.infomessage)
+  if (!has_infomessage()) {
+    return NULL;
+  }
+  clear_has_infomessage();
+  return infomessage_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void reqAlarm::set_allocated_infomessage(::std::string* infomessage) {
+  if (infomessage != NULL) {
+    set_has_infomessage();
+  } else {
+    clear_has_infomessage();
+  }
+  infomessage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), infomessage);
+  // @@protoc_insertion_point(field_set_allocated:BaseCmd.reqAlarm.infomessage)
+}
+
+// -------------------------------------------------------------------
+
+// rspAlarm
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -51,3 +51,18 @@ message rspSignin
   required string name = 1;
   required bool succ = 2;
 }
+
+
+message reqMove{
+	required float forward = 1;
+	required float angle = 2;
+}
+message rspMove{
+}
+message reqAlarm{
+	required string infomessage = 1;
+}
+message rspAlarm{
+}
+
+
