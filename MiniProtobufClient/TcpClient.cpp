@@ -4,7 +4,8 @@ TcpClient::TcpClient(asio::io_context& io_context, std::shared_ptr<MessageRoute>
 	BaseSocketConnection(spmr), io_context_(io_context), socket(io_context), r(io_context)
 {
 
-
+	totlasend = 0;
+	totlasendwill = 0;
 
 }
 
@@ -33,11 +34,27 @@ void TcpClient::connect_handler(
 	tcp::resolver::iterator i)
 {
    	Receive();
+
+	io_context_.post(std::bind(&TcpClient::Process, shared_from_this()));
 }
 
+void TcpClient::Process()
+{
+	m_spMessageRoute->Process();
+
+	io_context_.post(std::bind(&TcpClient::Process, shared_from_this()));
+}
+
+
+//void TcpClient::SendData(std::shared_ptr<asio::streambuf> spbuf)
+//{
+//	asio::async_write(socket,*(spbuf.get()), std::bind(&TcpClient::write_handler, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
+//}
 void TcpClient::SendData(asio::streambuf& buf)
 {
-	PostSend(buf);
+	totlasendwill += buf.size();
+	std::cout << "Write buf will:" << buf.size() << "   total send will:" << totlasendwill << std::endl;
+	asio::async_write(socket, buf, std::bind(&TcpClient::write_handler, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
 }
 
 
@@ -53,24 +70,18 @@ void TcpClient::read_handler(
 	Receive();
 }
 
-void TcpClient::PostSend(asio::streambuf& buf)
-{
-	io_context_.post(std::bind(&TcpClient::RealSend, shared_from_this()));
-}
-void TcpClient::RealSend()
-{
-
-	asio::async_write(socket,
-		m_spMessageRoute->GetSendBuffer(), std::bind(&TcpClient::write_handler, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
-}
 void TcpClient::write_handler(
 	const asio::error_code& ec,
 	std::size_t bytes_transferred)
 {
+	//std::lock_guard<std::mutex> lock(m_spMessageRoute->mSendMutex);
 	if (!ec)
 	{
-		std::cout << "Write buf Success" << std::endl;
+	
+		totlasend += bytes_transferred;
 
+		std::cout << "Write buf Success:" << bytes_transferred << "   total send:" << totlasend << std::endl;
+		
 	}
 	else
 	{

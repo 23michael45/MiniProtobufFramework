@@ -1,4 +1,7 @@
 #include "TcpServer.h"
+#include <map>
+#include "asio/asio/include/asio.hpp"
+#include "asio/asio/include/asio/deadline_timer.hpp"
 
 std::string make_daytime_string()
 {
@@ -9,14 +12,50 @@ std::string make_daytime_string()
 
 void TcpConnection::start()
 {
+	totalrec = 0;
 	std::cout << "Connection Established!" << std::endl;
 	std::string timestring  = make_daytime_string();
 	// Start reading messages from the server
 	start_read();
 
+
+	sp_executor_context = std::make_shared<asio::io_context>();
+	_thgExecutors.create_thread(bind(&TcpConnection::WorkerThreadCallback,shared_from_this(),sp_executor_context));
 }
+/* WorkerThread Callback Skeleton */
+void TcpConnection::WorkerThreadCallback(std::shared_ptr<asio::io_context> ios)
+{
+	/*while (true)
+	{*/
+		try
+		{
+			asio::error_code errorCode;
 
+			sp_executor_context->post(std::bind(&TcpConnection::Process, shared_from_this()));
+			sp_executor_context->run(errorCode);
+			if (errorCode)
+			{
+				/*lockStream();
+				LOG_ERR() << " Error: " << errorCode.message() << endl;
+				unlockStream();*/
+			}
+		}
+		catch (std::exception& ex)
+		{
+			/*lockStream();
+			LOG_ERR() << " Exception: " << ex.what() << endl;
+			unlockStream();*/
+		}
+	//}
+}
+void TcpConnection::Process()
+{
+	do 
+	{
+		m_spMessageRoute->Process();
+	} while (!error);
 
+}
 
 // Reading messages from the server
 void TcpConnection::start_read()
@@ -48,13 +87,18 @@ void TcpConnection::SendData(asio::streambuf& buf)
 void TcpConnection::handle_read(const asio::error_code& ec)
 {
 
+	//std::lock_guard<std::mutex> lock(m_spMessageRoute->mRecvMutex);
+	
 	if (!ec)
 	{
+		totalrec += input_buffer_.size();
+		std::cout << "receive: " << input_buffer_.size() << " totalrec:" << totalrec<<  "\n";
 		ReadData(input_buffer_);
 		start_read();
 	}
 	else
 	{
+		error = true;
 		std::cout << "Error on receive: " << ec.message() << "\n";
 	}
 }

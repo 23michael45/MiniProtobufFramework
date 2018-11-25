@@ -16,14 +16,17 @@
 
 using namespace google;
 
-#define TEMP_BUFFER_SIZE 4096
-
+#define TEMP_BUFFER_SIZE 1024
 
 
 class MessageRoute
 {
 public: 
 	MessageRoute();
+	~MessageRoute()
+	{
+		std::cout << "MessageRoute Delete" << std::endl;
+	}
 	
 
 	
@@ -33,19 +36,31 @@ public:
 
 
 
+	//std::function<void(std::shared_ptr<asio::streambuf>)> m_fSendFunc;
 	std::function<void(asio::streambuf&)> m_fSendFunc;
 	asio::streambuf& GetSendBuffer() {
 		return mDataStreamSend;
 	}
-private:
-
 	void Process();
 
+	std::mutex mSendMutex;
+	std::mutex mRecvMutex;
+private:
 
+	bool ProcessRecv(int& preTotalLen);
+	bool ProcessSend();
+
+
+	int mPreRecivesTotalLen;
 	asio::streambuf mDataStreamReceive;
 	asio::streambuf mDataStreamSend;
 
+
+
 	char mTempBuffer[TEMP_BUFFER_SIZE];
+
+	size_t totalSend;
+	size_t totalSend2;
 
 };
 

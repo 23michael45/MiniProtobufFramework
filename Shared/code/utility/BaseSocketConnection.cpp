@@ -9,6 +9,10 @@ void BaseSocketConnection::ReadData(asio::streambuf& buf)
 {
 	m_spMessageRoute->Receive(buf);
 }
+//void BaseSocketConnection::SendData(std::shared_ptr<asio::streambuf> spbuf)
+//{
+//	std::cout << "Base Send" << std::endl;
+//}
 void BaseSocketConnection::SendData(asio::streambuf& buf)
 {
 	std::cout << "Base Send" << std::endl;

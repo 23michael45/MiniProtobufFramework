@@ -15,7 +15,8 @@ public:
 		m_spMessageRoute.reset();
 	}
 	virtual void ReadData(asio::streambuf& buf);
-	virtual void SendData(asio::streambuf& buf);
+	//virtual void SendData(std::shared_ptr<asio::streambuf> spbuf);
+	virtual void SendData(asio::streambuf& spbuf);
 
 
 

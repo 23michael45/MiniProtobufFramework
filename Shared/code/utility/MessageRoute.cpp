@@ -1,5 +1,6 @@
 #include "MessageRoute.h"
 #include <iostream>
+#include <google/protobuf/io/coded_stream.h>
 
 
 
@@ -28,59 +29,132 @@ std::shared_ptr<protobuf::Message> createMessage(const std::string &type_name)
 
 MessageRoute::MessageRoute()
 {
+	totalSend = 0;
+	totalSend2 = 0;
 }
 
 void MessageRoute::Receive(asio::streambuf& buf)
 {
+	std::lock_guard<std::mutex> lock(mRecvMutex);
 	std::istream is(&buf);
-	std::istreambuf_iterator<char> isb(is), end;
 
-	std::ostreambuf_iterator<char> osb(&mDataStreamReceive);
+	std::ostream oshold(&mDataStreamReceive);
+	auto oos = new google::protobuf::io::OstreamOutputStream(&oshold);
+	auto cos = new google::protobuf::io::CodedOutputStream(oos);
 
-	while (isb != end)
-		*osb++ = *isb++;
 
-	Process();
+	while (buf.size()> 0)
+	{
+		int readSize = std::min((int)(buf.size()), (int)TEMP_BUFFER_SIZE);
+		is.read(mTempBuffer, readSize);
+
+		cos->WriteRaw(mTempBuffer, readSize);
+		oshold.flush();
+	}
+
+	delete cos;
+	delete oos;
+
 
 }
+
 void MessageRoute::Process()
 {
+	ProcessRecv(mPreRecivesTotalLen);
+	ProcessSend();
 
-	std::istream is(&mDataStreamReceive);
+}
 
-	is.read(mTempBuffer, sizeof(int));
-	int totalLen = *(int*)mTempBuffer;
-
-	if (mDataStreamReceive.size() < totalLen - 4)
+bool MessageRoute::ProcessRecv(int& preTotalLen)
+{
+	std::lock_guard<std::mutex> lock(mRecvMutex);
+	if (mDataStreamReceive.size() < sizeof(int))
 	{
-		return;
+		return false;
+	}
+
+	std::istream ishold(&mDataStreamReceive);
+
+	std::shared_ptr<protobuf::io::IstreamInputStream> iis;
+	std::shared_ptr<google::protobuf::io::CodedInputStream> cis;
+
+	google::protobuf::uint32 totalLen = 0;
+	if (preTotalLen > 0)
+	{
+		totalLen = preTotalLen;
+		if (mDataStreamReceive.size() < totalLen - sizeof(int))
+		{
+			//std::cout << "not enough buf len" << std::endl;
+			return false;
+		}
+	}
+	else
+	{
+		iis = make_shared<google::protobuf::io::IstreamInputStream>(&ishold, sizeof(int));
+		cis = make_shared<google::protobuf::io::CodedInputStream>(iis.get());
+
+
+		cis->ReadLittleEndian32(&totalLen);
+
+		if (mDataStreamReceive.size() < totalLen - sizeof(int))
+		{
+			preTotalLen = totalLen;
+			//std::cout << "not enough buf len" << std::endl;
+
+
+			//delete cis;
+			//delete iis;
+			return false;
+		}
+
+		/*delete cis;
+		delete iis;*/
+
+		cis.reset();
+		iis.reset();
 	}
 
 
-	is.read(mTempBuffer, sizeof(int));
-	int headLen = *(int*)mTempBuffer;
 
 
-	is.read(mTempBuffer, headLen);
+	iis = make_shared<google::protobuf::io::IstreamInputStream>(&ishold, totalLen - sizeof(int));
+	cis = make_shared<google::protobuf::io::CodedInputStream>(iis.get());
+
+	google::protobuf::uint32 headLen = 0;
+	cis->ReadLittleEndian32(&headLen);
+
+	cis->ReadRaw(mTempBuffer, headLen);
 
 	CmdType cmdType;
 	cmdType.ParseFromArray(mTempBuffer,headLen);
 
+
+
 	int bodyLen = totalLen - headLen - 8;
-	is.read(mTempBuffer, bodyLen);
+
+	cis->ReadRaw(mTempBuffer, bodyLen);
+
 	auto spmsg = createMessage(cmdType.type());
-
 	spmsg->ParseFromArray(mTempBuffer,bodyLen);
-	cout << cmdType.type() << "\n" << endl;
 
+	//std::cout << cmdType.type() << " revbuf:" << mDataStreamReceive.size() <<'\n' << std::endl;
+	
+	//do dispatch
 
 	spmsg.reset();
+	preTotalLen = 0;
+
+	/*delete iis;
+	delete cis;*/
+	
+	return true;
 	
 }
 
 bool MessageRoute::Send(protobuf::Message& msg)
 {
 
+	std::lock_guard<std::mutex> lock(mSendMutex);
 
 	string stype = msg.GetTypeName();
 
@@ -98,17 +172,67 @@ bool MessageRoute::Send(protobuf::Message& msg)
 
 	int totallen = 8 + headlen + bodylen;
 
-	os.write((const char*)&totallen, sizeof(int));
-	os.write((const char*)&headlen, sizeof(int));
 
-	std::string headstring;
-	cmdType.SerializeToOstream(&os);
+	std::ostream oshold(&mDataStreamSend);
+	auto oos = new google::protobuf::io::OstreamOutputStream(&oshold);
+	auto cos = new google::protobuf::io::CodedOutputStream(oos);
+
+	cos->WriteLittleEndian32(totallen);
+	cos->WriteLittleEndian32(headlen);
+
+	cmdType.SerializeToCodedStream(cos);
+	msg.SerializeToCodedStream(cos);
 
 
-	std::string bodystring;
-	msg.SerializeToOstream(&os);
+	delete cos;
+	delete oos;
 
+	//std::cout << stype << std::endl;
+
+	//totalSend += totallen;// mDataStreamSend.size();
+	//std::cout << "MessageRoute total send:" << totalSend << std::endl;
+
+	return true;
+}
+
+
+bool MessageRoute::ProcessSend()
+{
+	if (mDataStreamSend.size() == 0)
+	{
+		return false;
+	}
+	std::lock_guard<std::mutex> lock(mSendMutex);
+
+	//std::cout << mDataStreamSend.size() << std::endl;
+
+	//auto spbuf = std::shared_ptr<asio::streambuf>(new asio::streambuf);
+
+
+	//totalSend2 += mDataStreamSend.size();
+	//std::cout << "MessageRoute total send2:" << totalSend2 << std::endl;
 	m_fSendFunc(mDataStreamSend);
 
+
+	//asio::streambuf buf;
+
+	//std::istream is(&mDataStreamSend);
+
+	//std::ostream oshold(&buf);
+	//auto oos = new google::protobuf::io::OstreamOutputStream(&oshold);
+	//auto cos = new google::protobuf::io::CodedOutputStream(oos);
+
+
+	//while (mDataStreamSend.size() > 0)
+	//{
+	//	int readSize = std::min((int)(mDataStreamSend.size()), (int)TEMP_BUFFER_SIZE);
+	//	is.read(mTempBuffer, readSize);
+
+	//	cos->WriteRaw(mTempBuffer, readSize);
+	//	oshold.flush();
+	//}
+
+	//delete cos;
+	//delete oos;
 	return true;
 }

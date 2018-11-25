@@ -17,15 +17,15 @@ public:
 	void connect_handler(const asio::error_code& ec, tcp::resolver::iterator i);
 
 
-	void SendData(asio::streambuf& buf);
+	//virtual void SendData(std::shared_ptr<asio::streambuf> spbuf) override;
+	virtual void SendData(asio::streambuf& buf) override;
 
 	void write_handler(const asio::error_code& ec,	std::size_t bytes_transferred);
 	void Receive();
 	void read_handler(const asio::error_code& ec,	std::size_t bytes_transferred);
 
-	void PostSend(asio::streambuf& buf);
-	void RealSend();
 
+	void Process();
 
 private:
 
@@ -35,4 +35,7 @@ private:
 	tcp::resolver r;
 	asio::streambuf receivebuf;
 	asio::io_context& io_context_;
+
+	size_t totlasendwill;
+	size_t totlasend;
 };
