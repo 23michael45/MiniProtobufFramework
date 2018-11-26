@@ -42,9 +42,7 @@ public:
 
 	//std::function<void(std::shared_ptr<asio::streambuf>)> m_fSendFunc;
 	std::function<void(asio::streambuf&)> m_fSendFunc;
-	asio::streambuf& GetSendBuffer() {
-		return mDataStreamSend;
-	}
+	
 	void Process();
 
 	std::mutex mSendMutex;

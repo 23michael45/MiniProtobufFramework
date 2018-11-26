@@ -41,8 +41,8 @@ void MessageRoute::Receive(asio::streambuf& buf)
 	std::istream is(&buf);
 
 	std::ostream oshold(&mDataStreamReceive);
-	auto oos = new google::protobuf::io::OstreamOutputStream(&oshold);
-	auto cos = new google::protobuf::io::CodedOutputStream(oos);
+	google::protobuf::io::OstreamOutputStream oos(&oshold);
+	google::protobuf::io::CodedOutputStream cos(&oos);
 
 
 	while (buf.size()> 0)
@@ -50,12 +50,9 @@ void MessageRoute::Receive(asio::streambuf& buf)
 		int readSize = std::min((int)(buf.size()), (int)TEMP_BUFFER_SIZE);
 		is.read(mTempBuffer, readSize);
 
-		cos->WriteRaw(mTempBuffer, readSize);
+		cos.WriteRaw(mTempBuffer, readSize);
 		oshold.flush();
 	}
-
-	delete cos;
-	delete oos;
 
 
 }
@@ -176,25 +173,23 @@ bool MessageRoute::Send(protobuf::Message& msg)
 
 
 	int headlen = cmdType.ByteSize();
-
-	std::ostream os(&mDataStreamSend);
-
+	
 	int totallen = 8 + headlen + bodylen;
 
 
 	std::ostream oshold(&mDataStreamSend);
-	auto oos = new google::protobuf::io::OstreamOutputStream(&oshold);
-	auto cos = new google::protobuf::io::CodedOutputStream(oos);
+	google::protobuf::io::OstreamOutputStream oos(&oshold);
+	google::protobuf::io::CodedOutputStream cos(&oos);
 
-	cos->WriteLittleEndian32(totallen);
-	cos->WriteLittleEndian32(headlen);
+	cos.WriteLittleEndian32(totallen);
+	cos.WriteLittleEndian32(headlen);
 
-	cmdType.SerializeToCodedStream(cos);
-	msg.SerializeToCodedStream(cos);
+	cmdType.SerializeToCodedStream(&cos);
+	msg.SerializeToCodedStream(&cos);
 
 
-	delete cos;
-	delete oos;
+	/*delete cos;
+	delete oos;*/
 
 	//std::cout << stype << std::endl;
 
@@ -207,12 +202,12 @@ bool MessageRoute::Send(protobuf::Message& msg)
 
 bool MessageRoute::ProcessSend()
 {
+	
+	std::lock_guard<std::mutex> lock(mSendMutex);
 	if (mDataStreamSend.size() == 0)
 	{
 		return false;
 	}
-	std::lock_guard<std::mutex> lock(mSendMutex);
-
 	//std::cout << mDataStreamSend.size() << std::endl;
 
 	//auto spbuf = std::shared_ptr<asio::streambuf>(new asio::streambuf);
