@@ -122,13 +122,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Shared\code\protobuf\BaseCmd.pb.cc" />
+    <ClCompile Include="..\Shared\code\utility\BaseMessageDispatcher.cpp" />
     <ClCompile Include="..\Shared\code\utility\BaseSocketConnection.cpp" />
     <ClCompile Include="..\Shared\code\utility\MessageRoute.cpp" />
+    <ClCompile Include="ClientMessageDispatcher.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveProcessor.cpp" />
+    <ClCompile Include="SigninProcessor.cpp" />
     <ClCompile Include="TcpClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\code\protobuf\BaseCmd.pb.h" />
+    <ClInclude Include="ClientMessageDispatcher.h" />
     <ClInclude Include="TcpClient.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,8 +10,9 @@ class BaseSocketConnection
 {
 public: 
 	BaseSocketConnection(std::shared_ptr<MessageRoute> spmr);
-	~BaseSocketConnection()
+	virtual ~BaseSocketConnection()
 	{
+		std::cout << "~BaseSocketConnection" << std::endl;
 		m_spMessageRoute.reset();
 	}
 	virtual void ReadData(asio::streambuf& buf);

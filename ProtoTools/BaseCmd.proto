@@ -58,11 +58,14 @@ message reqMove{
 	required float angle = 2;
 }
 message rspMove{
+	required string error = 1;
 }
 message reqAlarm{
 	required string infomessage = 1;
 }
 message rspAlarm{
+
+	required string error = 1;
 }
 
 

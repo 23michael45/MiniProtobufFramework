@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "SharedHeader.h"
+#include "ServerMessageDispatcher.h"
 
 using asio::ip::tcp;
 
@@ -14,6 +15,8 @@ public:
 	TcpConnection(asio::io_context& io_context, std::shared_ptr<MessageRoute> spmr)
 		: BaseSocketConnection(spmr), socket_(io_context), io_context_(io_context)
 	{
+		
+		spmr->SetMessageDispatcher(std::make_shared<ServerMessageDispatcher>());
 	}
 	TcpConnection(asio::io_context& io_context)
 		: TcpConnection(io_context,std::make_shared<MessageRoute>())
@@ -21,6 +24,7 @@ public:
 	}
 	~TcpConnection()
 	{
+		BaseSocketConnection::~BaseSocketConnection();
 		std::cout << "Connect Lost" << std::endl;
 	}
 

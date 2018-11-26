@@ -27,12 +27,33 @@
     <ClCompile Include="TcpClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Shared\code\utility\BaseSocketConnection.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\code\utility\MessageRoute.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\code\utility\BaseMessageDispatcher.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientMessageDispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SigninProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\code\protobuf\BaseCmd.pb.h">
       <Filter>Shared</Filter>
     </ClInclude>
     <ClInclude Include="TcpClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientMessageDispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

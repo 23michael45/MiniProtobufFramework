@@ -129,9 +129,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Shared\code\protobuf\BaseCmd.pb.cc" />
+    <ClCompile Include="..\Shared\code\utility\BaseMessageDispatcher.cpp" />
     <ClCompile Include="..\Shared\code\utility\BaseSocketConnection.cpp" />
     <ClCompile Include="..\Shared\code\utility\MessageRoute.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveProcessor.cpp" />
+    <ClCompile Include="ServerMessageDispatcher.cpp" />
+    <ClCompile Include="SigninProcessor.cpp" />
     <ClCompile Include="TcpServer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
