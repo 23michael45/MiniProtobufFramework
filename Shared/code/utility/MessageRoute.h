@@ -14,12 +14,13 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
+#include "code/utility//BaseMessageDispatcher.h"
 using namespace google;
 
 #define TEMP_BUFFER_SIZE 1024
 
 
-class MessageRoute
+class MessageRoute : public std::enable_shared_from_this<MessageRoute>
 {
 public: 
 	MessageRoute();
@@ -28,7 +29,10 @@ public:
 		std::cout << "MessageRoute Delete" << std::endl;
 	}
 	
-
+	void SetMessageDispatcher(std::shared_ptr<BaseMessageDispatcher> sp)
+	{
+		m_spMessageDispatcher = sp;
+	}
 	
 
 	void Receive(asio::streambuf& buf);
@@ -62,6 +66,8 @@ private:
 	size_t totalSend;
 	size_t totalSend2;
 
+
+	std::shared_ptr<BaseMessageDispatcher> m_spMessageDispatcher;
 };
 
 #endif

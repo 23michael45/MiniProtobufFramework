@@ -22,7 +22,7 @@ public:
 
 	void write_handler(const asio::error_code& ec,	std::size_t bytes_transferred);
 	void Receive();
-	void read_handler(const asio::error_code& ec,	std::size_t bytes_transferred);
+	void read_handler(const asio::error_code& ec);
 
 
 	void Process();

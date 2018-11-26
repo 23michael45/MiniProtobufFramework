@@ -70,9 +70,17 @@ void TcpConnection::start_read()
 }
 
 
-void TcpConnection::handle_write(const asio::error_code& error/*error*/,
+void TcpConnection::handle_write(const asio::error_code& ec/*error*/,
 	size_t size/*bytes_transferred*/)
 {
+	if (!ec)
+	{
+		std::cout << "Send: " << size << "\n";
+	}
+	else
+	{
+		std::cout << "Error on send: " << ec.message() << "\n";
+	}
 }
 
 void TcpConnection::SendData(asio::streambuf& buf)
@@ -92,13 +100,13 @@ void TcpConnection::handle_read(const asio::error_code& ec)
 	if (!ec)
 	{
 		totalrec += input_buffer_.size();
-		std::cout << "receive: " << input_buffer_.size() << " totalrec:" << totalrec<<  "\n";
+		//std::cout << "receive: " << input_buffer_.size() << " totalrec:" << totalrec<<  "\n";
 		ReadData(input_buffer_);
 		start_read();
 	}
 	else
 	{
 		error = true;
-		std::cout << "Error on receive: " << ec.message() << "\n";
+		//std::cout << "Error on receive: " << ec.message() << "\n";
 	}
 }

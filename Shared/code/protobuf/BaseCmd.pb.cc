@@ -307,6 +307,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::BaseCmd::rspMove, error_),
+  0,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::BaseCmd::reqAlarm, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::BaseCmd::reqAlarm, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -319,6 +321,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::BaseCmd::rspAlarm, error_),
+  0,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 9, sizeof(::BaseCmd::CmdType)},
@@ -328,9 +332,9 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 42, 48, sizeof(::BaseCmd::reqSignin)},
   { 49, 56, sizeof(::BaseCmd::rspSignin)},
   { 58, 65, sizeof(::BaseCmd::reqMove)},
-  { 67, 72, sizeof(::BaseCmd::rspMove)},
-  { 72, 78, sizeof(::BaseCmd::reqAlarm)},
-  { 79, 84, sizeof(::BaseCmd::rspAlarm)},
+  { 67, 73, sizeof(::BaseCmd::rspMove)},
+  { 74, 80, sizeof(::BaseCmd::reqAlarm)},
+  { 81, 87, sizeof(::BaseCmd::rspAlarm)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -382,11 +386,12 @@ void AddDescriptorsImpl() {
       "\n\004WORK\020\002\")\n\treqSignin\022\034\n\004user\030\001 \003(\0132\016.Ba"
       "seCmd.sUser\"\'\n\trspSignin\022\014\n\004name\030\001 \002(\t\022\014"
       "\n\004succ\030\002 \002(\010\")\n\007reqMove\022\017\n\007forward\030\001 \002(\002"
-      "\022\r\n\005angle\030\002 \002(\002\"\t\n\007rspMove\"\037\n\010reqAlarm\022\023"
-      "\n\013infomessage\030\001 \002(\t\"\n\n\010rspAlarm"
+      "\022\r\n\005angle\030\002 \002(\002\"\030\n\007rspMove\022\r\n\005error\030\001 \002("
+      "\t\"\037\n\010reqAlarm\022\023\n\013infomessage\030\001 \002(\t\"\031\n\010rs"
+      "pAlarm\022\r\n\005error\030\001 \002(\t"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 671);
+      descriptor, 701);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "BaseCmd.proto", &protobuf_RegisterTypes);
 }
@@ -2685,6 +2690,7 @@ void reqMove::InternalSwap(reqMove* other) {
 void rspMove::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int rspMove::kErrorFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 rspMove::rspMove()
@@ -2699,10 +2705,15 @@ rspMove::rspMove(const rspMove& from)
       _internal_metadata_(NULL),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  error_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_error()) {
+    error_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.error_);
+  }
   // @@protoc_insertion_point(copy_constructor:BaseCmd.rspMove)
 }
 
 void rspMove::SharedCtor() {
+  error_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 rspMove::~rspMove() {
@@ -2711,6 +2722,7 @@ rspMove::~rspMove() {
 }
 
 void rspMove::SharedDtor() {
+  error_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void rspMove::SetCachedSize(int size) const {
@@ -2733,6 +2745,10 @@ void rspMove::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    error_.ClearNonDefaultToEmptyNoArena();
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -2746,12 +2762,33 @@ bool rspMove::MergePartialFromCodedStream(
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string error = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_error()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->error().data(), static_cast<int>(this->error().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "BaseCmd.rspMove.error");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormat::SkipField(
-          input, tag, _internal_metadata_.mutable_unknown_fields()));
   }
 success:
   // @@protoc_insertion_point(parse_success:BaseCmd.rspMove)
@@ -2768,6 +2805,17 @@ void rspMove::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  // required string error = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->error().data(), static_cast<int>(this->error().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "BaseCmd.rspMove.error");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->error(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -2781,6 +2829,18 @@ void rspMove::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_to_array_start:BaseCmd.rspMove)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string error = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->error().data(), static_cast<int>(this->error().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "BaseCmd.rspMove.error");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->error(), target);
+  }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
@@ -2798,6 +2858,12 @@ size_t rspMove::ByteSizeLong() const {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
+  }
+  // required string error = 1;
+  if (has_error()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->error());
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
@@ -2826,6 +2892,10 @@ void rspMove::MergeFrom(const rspMove& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.has_error()) {
+    set_has_error();
+    error_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.error_);
+  }
 }
 
 void rspMove::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2843,6 +2913,7 @@ void rspMove::CopyFrom(const rspMove& from) {
 }
 
 bool rspMove::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   return true;
 }
 
@@ -2852,6 +2923,8 @@ void rspMove::Swap(rspMove* other) {
 }
 void rspMove::InternalSwap(rspMove* other) {
   using std::swap;
+  error_.Swap(&other->error_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
@@ -3117,6 +3190,7 @@ void reqAlarm::InternalSwap(reqAlarm* other) {
 void rspAlarm::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int rspAlarm::kErrorFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 rspAlarm::rspAlarm()
@@ -3131,10 +3205,15 @@ rspAlarm::rspAlarm(const rspAlarm& from)
       _internal_metadata_(NULL),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  error_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_error()) {
+    error_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.error_);
+  }
   // @@protoc_insertion_point(copy_constructor:BaseCmd.rspAlarm)
 }
 
 void rspAlarm::SharedCtor() {
+  error_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 rspAlarm::~rspAlarm() {
@@ -3143,6 +3222,7 @@ rspAlarm::~rspAlarm() {
 }
 
 void rspAlarm::SharedDtor() {
+  error_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void rspAlarm::SetCachedSize(int size) const {
@@ -3165,6 +3245,10 @@ void rspAlarm::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    error_.ClearNonDefaultToEmptyNoArena();
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -3178,12 +3262,33 @@ bool rspAlarm::MergePartialFromCodedStream(
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string error = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_error()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->error().data(), static_cast<int>(this->error().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "BaseCmd.rspAlarm.error");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormat::SkipField(
-          input, tag, _internal_metadata_.mutable_unknown_fields()));
   }
 success:
   // @@protoc_insertion_point(parse_success:BaseCmd.rspAlarm)
@@ -3200,6 +3305,17 @@ void rspAlarm::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  // required string error = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->error().data(), static_cast<int>(this->error().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "BaseCmd.rspAlarm.error");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->error(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -3213,6 +3329,18 @@ void rspAlarm::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_to_array_start:BaseCmd.rspAlarm)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required string error = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->error().data(), static_cast<int>(this->error().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "BaseCmd.rspAlarm.error");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->error(), target);
+  }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
@@ -3230,6 +3358,12 @@ size_t rspAlarm::ByteSizeLong() const {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
+  }
+  // required string error = 1;
+  if (has_error()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->error());
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
@@ -3258,6 +3392,10 @@ void rspAlarm::MergeFrom(const rspAlarm& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.has_error()) {
+    set_has_error();
+    error_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.error_);
+  }
 }
 
 void rspAlarm::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3275,6 +3413,7 @@ void rspAlarm::CopyFrom(const rspAlarm& from) {
 }
 
 bool rspAlarm::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   return true;
 }
 
@@ -3284,6 +3423,8 @@ void rspAlarm::Swap(rspAlarm* other) {
 }
 void rspAlarm::InternalSwap(rspAlarm* other) {
   using std::swap;
+  error_.Swap(&other->error_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }

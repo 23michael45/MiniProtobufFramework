@@ -104,7 +104,7 @@ void detectinput(shared_ptr<MessageRoute> spMessageRoute)
 	vec.push_back('s');
 	vec.push_back('m');
 	vec.push_back('a');
-	char temp = vec[0];
+	char temp = vec[random_number];
 
 	if (temp == 's')
 	{
@@ -157,7 +157,7 @@ int clientStart()
 
 
 		int cur = 0;
-		int num = 9000;
+		int num = 101;
 		while (++cur < num)
 		{
 			//io_context.run_one();
@@ -375,6 +375,14 @@ int main(int argc, char* argv[])
 	//delete ptrmap[0];
 
 	/*ptrmap[0]->reset();*/
+
+
+	asio::detail::thread_group    threads;
+
+	/*for (int i = 0 ; i< 100 ;i++)
+	{
+		threads.create_thread(clientStart);
+	}*/
 	return clientStart();
 
 }

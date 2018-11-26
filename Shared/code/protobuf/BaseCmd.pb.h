@@ -1250,12 +1250,30 @@ class rspMove : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
+  // required string error = 1;
+  bool has_error() const;
+  void clear_error();
+  static const int kErrorFieldNumber = 1;
+  const ::std::string& error() const;
+  void set_error(const ::std::string& value);
+  #if LANG_CXX11
+  void set_error(::std::string&& value);
+  #endif
+  void set_error(const char* value);
+  void set_error(const char* value, size_t size);
+  ::std::string* mutable_error();
+  ::std::string* release_error();
+  void set_allocated_error(::std::string* error);
+
   // @@protoc_insertion_point(class_scope:BaseCmd.rspMove)
  private:
+  void set_has_error();
+  void clear_has_error();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr error_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -1476,12 +1494,30 @@ class rspAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
+  // required string error = 1;
+  bool has_error() const;
+  void clear_error();
+  static const int kErrorFieldNumber = 1;
+  const ::std::string& error() const;
+  void set_error(const ::std::string& value);
+  #if LANG_CXX11
+  void set_error(::std::string&& value);
+  #endif
+  void set_error(const char* value);
+  void set_error(const char* value, size_t size);
+  ::std::string* mutable_error();
+  ::std::string* release_error();
+  void set_allocated_error(::std::string* error);
+
   // @@protoc_insertion_point(class_scope:BaseCmd.rspAlarm)
  private:
+  void set_has_error();
+  void clear_has_error();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr error_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // ===================================================================
@@ -2215,6 +2251,72 @@ inline void reqMove::set_angle(float value) {
 
 // rspMove
 
+// required string error = 1;
+inline bool rspMove::has_error() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void rspMove::set_has_error() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void rspMove::clear_has_error() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void rspMove::clear_error() {
+  error_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_error();
+}
+inline const ::std::string& rspMove::error() const {
+  // @@protoc_insertion_point(field_get:BaseCmd.rspMove.error)
+  return error_.GetNoArena();
+}
+inline void rspMove::set_error(const ::std::string& value) {
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:BaseCmd.rspMove.error)
+}
+#if LANG_CXX11
+inline void rspMove::set_error(::std::string&& value) {
+  set_has_error();
+  error_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:BaseCmd.rspMove.error)
+}
+#endif
+inline void rspMove::set_error(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:BaseCmd.rspMove.error)
+}
+inline void rspMove::set_error(const char* value, size_t size) {
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:BaseCmd.rspMove.error)
+}
+inline ::std::string* rspMove::mutable_error() {
+  set_has_error();
+  // @@protoc_insertion_point(field_mutable:BaseCmd.rspMove.error)
+  return error_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* rspMove::release_error() {
+  // @@protoc_insertion_point(field_release:BaseCmd.rspMove.error)
+  if (!has_error()) {
+    return NULL;
+  }
+  clear_has_error();
+  return error_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void rspMove::set_allocated_error(::std::string* error) {
+  if (error != NULL) {
+    set_has_error();
+  } else {
+    clear_has_error();
+  }
+  error_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), error);
+  // @@protoc_insertion_point(field_set_allocated:BaseCmd.rspMove.error)
+}
+
 // -------------------------------------------------------------------
 
 // reqAlarm
@@ -2288,6 +2390,72 @@ inline void reqAlarm::set_allocated_infomessage(::std::string* infomessage) {
 // -------------------------------------------------------------------
 
 // rspAlarm
+
+// required string error = 1;
+inline bool rspAlarm::has_error() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void rspAlarm::set_has_error() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void rspAlarm::clear_has_error() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void rspAlarm::clear_error() {
+  error_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_error();
+}
+inline const ::std::string& rspAlarm::error() const {
+  // @@protoc_insertion_point(field_get:BaseCmd.rspAlarm.error)
+  return error_.GetNoArena();
+}
+inline void rspAlarm::set_error(const ::std::string& value) {
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:BaseCmd.rspAlarm.error)
+}
+#if LANG_CXX11
+inline void rspAlarm::set_error(::std::string&& value) {
+  set_has_error();
+  error_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:BaseCmd.rspAlarm.error)
+}
+#endif
+inline void rspAlarm::set_error(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:BaseCmd.rspAlarm.error)
+}
+inline void rspAlarm::set_error(const char* value, size_t size) {
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:BaseCmd.rspAlarm.error)
+}
+inline ::std::string* rspAlarm::mutable_error() {
+  set_has_error();
+  // @@protoc_insertion_point(field_mutable:BaseCmd.rspAlarm.error)
+  return error_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* rspAlarm::release_error() {
+  // @@protoc_insertion_point(field_release:BaseCmd.rspAlarm.error)
+  if (!has_error()) {
+    return NULL;
+  }
+  clear_has_error();
+  return error_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void rspAlarm::set_allocated_error(::std::string* error) {
+  if (error != NULL) {
+    set_has_error();
+  } else {
+    clear_has_error();
+  }
+  error_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), error);
+  // @@protoc_insertion_point(field_set_allocated:BaseCmd.rspAlarm.error)
+}
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop

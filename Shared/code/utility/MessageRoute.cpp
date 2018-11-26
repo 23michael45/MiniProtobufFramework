@@ -11,6 +11,8 @@ using namespace google;
 
 
 
+std::mutex gslobalMutex;
+
 
 std::shared_ptr<protobuf::Message> createMessage(const std::string &type_name)
 {
@@ -70,6 +72,9 @@ bool MessageRoute::ProcessRecv(int& preTotalLen)
 	std::lock_guard<std::mutex> lock(mRecvMutex);
 	if (mDataStreamReceive.size() < sizeof(int))
 	{
+		/*gslobalMutex.lock();
+		std::cout << std::this_thread::get_id() << "No Data" << std::endl;
+		gslobalMutex.unlock();*/
 		return false;
 	}
 
@@ -140,8 +145,12 @@ bool MessageRoute::ProcessRecv(int& preTotalLen)
 	//std::cout << cmdType.type() << " revbuf:" << mDataStreamReceive.size() <<'\n' << std::endl;
 	
 	//do dispatch
+	if (m_spMessageDispatcher)
+	{
+		m_spMessageDispatcher->Dispatch(shared_from_this(),cmdType.type(), spmsg);
+	}
 
-	spmsg.reset();
+
 	preTotalLen = 0;
 
 	/*delete iis;
