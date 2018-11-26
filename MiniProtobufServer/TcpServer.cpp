@@ -9,18 +9,36 @@ std::string make_daytime_string()
 	time_t now = time(0);
 	return ctime(&now);
 }
+TcpConnection::~TcpConnection()
+{
+	sp_executor_context.reset();
+	
+	//process_thread.reset();
+	//delete p_process_thread;
+	std::cout << "Connect Lost" << std::endl;
 
+}
 void TcpConnection::start()
 {
 	totalrec = 0;
-	std::cout << "Connection Established!" << std::endl;
+	std::string ip = socket().remote_endpoint().address().to_string();
+	std::cout << "Connection Established!" << ip << std::endl;
 	std::string timestring  = make_daytime_string();
 	// Start reading messages from the server
 	start_read();
 
 
-	sp_executor_context = std::make_shared<asio::io_context>();
-	_thgExecutors.create_thread(bind(&TcpConnection::WorkerThreadCallback,shared_from_this(),sp_executor_context));
+	sp_executor_context = std::make_shared<asio::io_context>(); 
+
+	asio::io_context::strand strand(*sp_executor_context.get());
+
+
+	strand.post(std::bind(&TcpConnection::Process, shared_from_this()));
+	//process_thread_group.create_thread(bind(&TcpConnection::WorkerThreadCallback,shared_from_this(),sp_executor_context));
+
+	//process_thread = std::make_shared<std::thread>(bind(&TcpConnection::WorkerThreadCallback, shared_from_this(), sp_executor_context));
+	process_thread = std::thread(bind(&TcpConnection::WorkerThreadCallback, shared_from_this(), sp_executor_context));
+	process_thread.detach();
 }
 /* WorkerThread Callback Skeleton */
 void TcpConnection::WorkerThreadCallback(std::shared_ptr<asio::io_context> ios)
@@ -30,9 +48,8 @@ void TcpConnection::WorkerThreadCallback(std::shared_ptr<asio::io_context> ios)
 		try
 		{
 			asio::error_code errorCode;
-
-			sp_executor_context->post(std::bind(&TcpConnection::Process, shared_from_this()));
-			sp_executor_context->run(errorCode);
+			ios->run(errorCode);
+			ios->stop();
 			if (errorCode)
 			{
 				/*lockStream();
@@ -75,11 +92,11 @@ void TcpConnection::handle_write(const asio::error_code& ec/*error*/,
 {
 	if (!ec)
 	{
-		std::cout << "Send: " << size << "\n";
+		//std::cout << "Send: " << size << "\n";
 	}
 	else
 	{
-		std::cout << "Error on send: " << ec.message() << "\n";
+		//std::cout << "Error on send: " << ec.message() << "\n";
 	}
 }
 
@@ -89,6 +106,7 @@ void TcpConnection::SendData(asio::streambuf& buf)
 		std::bind(&TcpConnection::handle_write, shared_from_this(),
 			std::placeholders::_1,
 			std::placeholders::_2));
+	buf.consume(buf.size());
 }
 
 // When stream is received, handle the message from the client

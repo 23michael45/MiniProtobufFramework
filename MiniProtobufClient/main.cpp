@@ -157,7 +157,7 @@ int clientStart()
 
 
 		int cur = 0;
-		int num = 101;
+		int num = 10001;
 		while (++cur < num)
 		{
 			//io_context.run_one();
@@ -379,10 +379,13 @@ int main(int argc, char* argv[])
 
 	asio::detail::thread_group    threads;
 
-	/*for (int i = 0 ; i< 100 ;i++)
-	{
-		threads.create_thread(clientStart);
-	}*/
+	//for (int i = 0 ; i< 1 ;i++)
+	//{
+	//	threads.create_thread([]() { int i = 0; });
+	//}
+
+	//threads.join();
+
 	return clientStart();
 
 }

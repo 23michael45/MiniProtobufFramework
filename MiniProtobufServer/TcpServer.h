@@ -22,11 +22,7 @@ public:
 		: TcpConnection(io_context,std::make_shared<MessageRoute>())
 	{
 	}
-	~TcpConnection()
-	{
-		BaseSocketConnection::~BaseSocketConnection();
-		std::cout << "Connect Lost" << std::endl;
-	}
+	~TcpConnection();
 
 
 	tcp::socket& socket()
@@ -57,8 +53,8 @@ private:
 	std::size_t totalrec;
 
 	std::shared_ptr<asio::io_context> sp_executor_context;
-
-	asio::detail::thread_group             _thgExecutors;
+	//std::shared_ptr < std::thread> process_thread;
+	std::thread process_thread;
 	bool error;
 };
 

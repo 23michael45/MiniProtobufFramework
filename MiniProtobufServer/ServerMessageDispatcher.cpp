@@ -15,6 +15,10 @@ ServerMessageDispatcher::ServerMessageDispatcher()
 	m_ProcessorMap[reqMove.GetTypeName()] = std::make_shared<MoveProcessor>();
 
 
+	reqAlarm reqAlerm;
+	m_ProcessorMap[reqMove.GetTypeName()] = std::make_shared<MoveProcessor>();
+
+
 }
 
 
