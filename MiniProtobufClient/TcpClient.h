@@ -19,17 +19,19 @@ public:
 
 	//virtual void SendData(std::shared_ptr<asio::streambuf> spbuf) override;
 	virtual void SendData(asio::streambuf& buf) override;
+	
 
 	void write_handler(const asio::error_code& ec,	std::size_t bytes_transferred);
 	void Receive();
+	void Send(asio::streambuf& buf);
 	void read_handler(const asio::error_code& ec);
 
-
+	void Close();
 	void Process();
 
 private:
 
-
+	std::mutex socketMutex;
 
 	tcp::socket socket;
 	tcp::resolver r;
@@ -38,4 +40,8 @@ private:
 
 	size_t totlasendwill;
 	size_t totlasend;
+
+	bool closed;
+
+	bool connected;
 };

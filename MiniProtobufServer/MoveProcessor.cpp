@@ -17,7 +17,7 @@ void MoveProcessor::Process(std::shared_ptr<MessageRoute> spRoute, std::shared_p
 	float forward = p_req->forward();
 	float angle = p_req->angle();
 
-	std::cout << "forward::" << forward << " angle:" << angle << std::endl;
+	//std::cout << "forward::" << forward << " angle:" << angle << std::endl;
 
 
 	//Do Robot move

@@ -15,6 +15,6 @@ void MoveProcessor::Process(std::shared_ptr<MessageRoute> spRoute, std::shared_p
 	rspMove* p_rsp = reinterpret_cast<rspMove*>(spMsg.get());
 
 	std::string error = p_rsp->error();
-	std::cout << "move rsp:" << error << std::endl;
+	//std::cout << "move rsp:" << error << std::endl;
 
 }

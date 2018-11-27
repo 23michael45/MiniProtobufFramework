@@ -9,7 +9,8 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <algorithm>
-
+#include <thread>
+#include <chrono>
 #include "TcpClient.h"
 using namespace std;
 using namespace BaseCmd;
@@ -104,7 +105,8 @@ void detectinput(shared_ptr<MessageRoute> spMessageRoute)
 	vec.push_back('s');
 	vec.push_back('m');
 	vec.push_back('a');
-	char temp = vec[random_number];
+	//char temp = vec[random_number];
+	char temp = vec[1];
 
 	if (temp == 's')
 	{
@@ -153,17 +155,30 @@ int clientStart()
 		std::string port = "88";
 		spclient->Connect(ip, port);
 
-		std::thread t([&io_context]() { io_context.run(); });
-
+		std::thread t([&io_context]() 
+		{
+			io_context.run();
+			std::cout << "Contect Run Finish" << std::endl;
+		});
+		//t.detach();
 
 		int cur = 0;
-		int num = 10001;
-		while (++cur < num)
+		int num = 2001;
+		while(++cur < num)
 		{
 			//io_context.run_one();
 			detectinput(spMessageRoute);
+
+			//std::this_thread::sleep_for(chrono::microseconds(1));
 		}
-		t.join();
+
+		std::this_thread::sleep_for(chrono::seconds(2));
+		spclient->Close();
+
+		if(t.joinable())
+		{
+			t.join();
+		}
 		spMessageRoute.reset();
 		spclient.reset();
 	}
@@ -386,8 +401,13 @@ int main(int argc, char* argv[])
 
 	//threads.join();
 
-	return clientStart();
+	do 
+	{
+		clientStart();
 
+	} while (true);
+
+	return 0;
 }
 
 

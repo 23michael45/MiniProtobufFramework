@@ -133,8 +133,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\code\protobuf\BaseCmd.pb.h" />
+    <ClInclude Include="..\Shared\code\utility\BaseMessageDispatcher.h" />
+    <ClInclude Include="..\Shared\code\utility\BaseProcessor.h" />
+    <ClInclude Include="..\Shared\code\utility\BaseSocketConnection.h" />
+    <ClInclude Include="..\Shared\code\utility\MessageRoute.h" />
+    <ClInclude Include="..\Shared\code\utility\Singleton.h" />
     <ClInclude Include="ClientMessageDispatcher.h" />
+    <ClInclude Include="MoveProcessor.h" />
+    <ClInclude Include="SigninProcessor.h" />
     <ClInclude Include="TcpClient.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

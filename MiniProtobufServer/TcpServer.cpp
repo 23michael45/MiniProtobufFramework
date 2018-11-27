@@ -25,20 +25,24 @@ void TcpConnection::start()
 	std::cout << "Connection Established!" << ip << std::endl;
 	std::string timestring  = make_daytime_string();
 	// Start reading messages from the server
-	start_read();
+	
+	//sp_executor_context = std::make_shared<asio::io_context>(); 
+
+	//asio::io_context::strand strand(*sp_executor_context.get());
+
+	//start_read();
+	//sp_executor_context->post(std::bind(&TcpConnection::start_read, shared_from_this()));
+	io_context_.post(std::bind(&TcpConnection::start_read, shared_from_this()));
 
 
-	sp_executor_context = std::make_shared<asio::io_context>(); 
 
-	asio::io_context::strand strand(*sp_executor_context.get());
-
-
-	strand.post(std::bind(&TcpConnection::Process, shared_from_this()));
+	io_context_.post(std::bind(&TcpConnection::Process, shared_from_this()));
+	//sp_executor_context->post(std::bind(&TcpConnection::Process, shared_from_this()));
 	//process_thread_group.create_thread(bind(&TcpConnection::WorkerThreadCallback,shared_from_this(),sp_executor_context));
 
 	//process_thread = std::make_shared<std::thread>(bind(&TcpConnection::WorkerThreadCallback, shared_from_this(), sp_executor_context));
-	process_thread = std::thread(bind(&TcpConnection::WorkerThreadCallback, shared_from_this(), sp_executor_context));
-	process_thread.detach();
+	//process_thread = std::thread(bind(&TcpConnection::WorkerThreadCallback, shared_from_this(), sp_executor_context));
+	//process_thread.detach();
 }
 /* WorkerThread Callback Skeleton */
 void TcpConnection::WorkerThreadCallback(std::shared_ptr<asio::io_context> ios)
@@ -67,11 +71,12 @@ void TcpConnection::WorkerThreadCallback(std::shared_ptr<asio::io_context> ios)
 }
 void TcpConnection::Process()
 {
-	do 
-	{
 		m_spMessageRoute->Process();
-	} while (!error);
 
+	if (!error)
+	{
+		io_context_.post(std::bind(&TcpConnection::Process, shared_from_this()));
+	}
 }
 
 // Reading messages from the server
@@ -82,7 +87,6 @@ void TcpConnection::start_read()
 		asio::transfer_at_least(1),
 		std::bind(&TcpConnection::handle_read, shared_from_this(),
 			std::placeholders::_1));
-
 
 }
 
@@ -102,13 +106,17 @@ void TcpConnection::handle_write(const asio::error_code& ec/*error*/,
 
 void TcpConnection::SendData(asio::streambuf& buf)
 {
-	asio::async_write(socket_, buf,
-		std::bind(&TcpConnection::handle_write, shared_from_this(),
-			std::placeholders::_1,
-			std::placeholders::_2));
+	if (!error)
+	{
+		io_context_.post(std::bind(&TcpConnection::Send, shared_from_this(), std::ref< asio::streambuf>(buf)));
+		//sp_executor_context->post(std::bind(&TcpConnection::Send, shared_from_this(), std::ref< asio::streambuf>(buf)));
+	}
+}
+void TcpConnection::Send(asio::streambuf& buf)
+{
+	asio::async_write(socket_, buf, std::bind(&TcpConnection::handle_write, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
 	buf.consume(buf.size());
 }
-
 // When stream is received, handle the message from the client
 void TcpConnection::handle_read(const asio::error_code& ec)
 {
@@ -118,9 +126,16 @@ void TcpConnection::handle_read(const asio::error_code& ec)
 	if (!ec)
 	{
 		totalrec += input_buffer_.size();
-		//std::cout << "receive: " << input_buffer_.size() << " totalrec:" << totalrec<<  "\n";
+		std::cout << "receive: " << input_buffer_.size() << " totalrec:" << totalrec<<  "\n";
 		ReadData(input_buffer_);
-		start_read();
+
+		if (!error)
+		{
+			//start_read();
+			//sp_executor_context->post(std::bind(&TcpConnection::start_read, shared_from_this()));
+			io_context_.post(std::bind(&TcpConnection::start_read, shared_from_this()));
+
+		}
 	}
 	else
 	{

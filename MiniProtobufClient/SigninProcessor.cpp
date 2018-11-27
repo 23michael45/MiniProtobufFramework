@@ -15,5 +15,5 @@ void SigninProcessor::Process(std::shared_ptr<MessageRoute> spRoute, std::shared
 
 	std::string name = p_rsp->name();
 	bool succ = p_rsp->succ();
-	std::cout << "signin rsp:" << name << " Succ:" << succ <<  std::endl;
+	//std::cout << "signin rsp:" << name << " Succ:" << succ <<  std::endl;
 }

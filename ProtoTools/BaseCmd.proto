@@ -1,14 +1,14 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package BaseCmd;
 
 
 message CmdType
 {
-	required string type = 1;
-	required int32 size = 2;
-	optional string fromip = 3;
-	optional string toip = 4;
+	 string type = 1;
+	 int32 size = 2;
+	 string fromip = 3;
+	 string toip = 4;
 }
 
 
@@ -19,15 +19,15 @@ message notifyConnectionStatus{
 		ConnectFailed = 1;
 		ConnectionLost = 2;
     }
-	required eConnectionStatus status = 1;
+	 eConnectionStatus status = 1;
 }
 
 
 
 message sUser {
-  required string name = 1;
-  required int32 id = 2;
-  optional string email = 3;
+   string name = 1;
+   int32 id = 2;
+   string email = 3;
 
   enum ePhoneType {
     MOBILE = 0;
@@ -36,8 +36,8 @@ message sUser {
   }
 
   message ePhoneNumber {
-    required string number = 1;
-    optional ePhoneType type = 2 [default = HOME];
+     string number = 1;
+     ePhoneType type = 2;
   }
 
   repeated ePhoneNumber phones = 4;
@@ -48,24 +48,24 @@ message reqSignin {
 }
 message rspSignin
 {
-  required string name = 1;
-  required bool succ = 2;
+   string name = 1;
+   bool succ = 2;
 }
 
 
 message reqMove{
-	required float forward = 1;
-	required float angle = 2;
+	 float forward = 1;
+	 float angle = 2;
 }
 message rspMove{
-	required string error = 1;
+	 string error = 1;
 }
 message reqAlarm{
-	required string infomessage = 1;
+	 string infomessage = 1;
 }
 message rspAlarm{
 
-	required string error = 1;
+	 string error = 1;
 }
 
 

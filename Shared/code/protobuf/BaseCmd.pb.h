@@ -97,7 +97,9 @@ namespace BaseCmd {
 enum notifyConnectionStatus_eConnectionStatus {
   notifyConnectionStatus_eConnectionStatus_ConnectSuccess = 0,
   notifyConnectionStatus_eConnectionStatus_ConnectFailed = 1,
-  notifyConnectionStatus_eConnectionStatus_ConnectionLost = 2
+  notifyConnectionStatus_eConnectionStatus_ConnectionLost = 2,
+  notifyConnectionStatus_eConnectionStatus_notifyConnectionStatus_eConnectionStatus_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  notifyConnectionStatus_eConnectionStatus_notifyConnectionStatus_eConnectionStatus_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool notifyConnectionStatus_eConnectionStatus_IsValid(int value);
 const notifyConnectionStatus_eConnectionStatus notifyConnectionStatus_eConnectionStatus_eConnectionStatus_MIN = notifyConnectionStatus_eConnectionStatus_ConnectSuccess;
@@ -117,7 +119,9 @@ inline bool notifyConnectionStatus_eConnectionStatus_Parse(
 enum sUser_ePhoneType {
   sUser_ePhoneType_MOBILE = 0,
   sUser_ePhoneType_HOME = 1,
-  sUser_ePhoneType_WORK = 2
+  sUser_ePhoneType_WORK = 2,
+  sUser_ePhoneType_sUser_ePhoneType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  sUser_ePhoneType_sUser_ePhoneType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool sUser_ePhoneType_IsValid(int value);
 const sUser_ePhoneType sUser_ePhoneType_ePhoneType_MIN = sUser_ePhoneType_MOBILE;
@@ -162,13 +166,6 @@ class CmdType : public ::google::protobuf::Message /* @@protoc_insertion_point(c
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const CmdType& default_instance();
 
@@ -230,8 +227,7 @@ class CmdType : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  // required string type = 1;
-  bool has_type() const;
+  // string type = 1;
   void clear_type();
   static const int kTypeFieldNumber = 1;
   const ::std::string& type() const;
@@ -245,8 +241,7 @@ class CmdType : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   ::std::string* release_type();
   void set_allocated_type(::std::string* type);
 
-  // optional string fromip = 3;
-  bool has_fromip() const;
+  // string fromip = 3;
   void clear_fromip();
   static const int kFromipFieldNumber = 3;
   const ::std::string& fromip() const;
@@ -260,8 +255,7 @@ class CmdType : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   ::std::string* release_fromip();
   void set_allocated_fromip(::std::string* fromip);
 
-  // optional string toip = 4;
-  bool has_toip() const;
+  // string toip = 4;
   void clear_toip();
   static const int kToipFieldNumber = 4;
   const ::std::string& toip() const;
@@ -275,8 +269,7 @@ class CmdType : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   ::std::string* release_toip();
   void set_allocated_toip(::std::string* toip);
 
-  // required int32 size = 2;
-  bool has_size() const;
+  // int32 size = 2;
   void clear_size();
   static const int kSizeFieldNumber = 2;
   ::google::protobuf::int32 size() const;
@@ -284,25 +277,13 @@ class CmdType : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // @@protoc_insertion_point(class_scope:BaseCmd.CmdType)
  private:
-  void set_has_type();
-  void clear_has_type();
-  void set_has_size();
-  void clear_has_size();
-  void set_has_fromip();
-  void clear_has_fromip();
-  void set_has_toip();
-  void clear_has_toip();
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr type_;
   ::google::protobuf::internal::ArenaStringPtr fromip_;
   ::google::protobuf::internal::ArenaStringPtr toip_;
   ::google::protobuf::int32 size_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -333,13 +314,6 @@ class notifyConnectionStatus : public ::google::protobuf::Message /* @@protoc_in
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const notifyConnectionStatus& default_instance();
 
@@ -429,8 +403,7 @@ class notifyConnectionStatus : public ::google::protobuf::Message /* @@protoc_in
 
   // accessors -------------------------------------------------------
 
-  // required .BaseCmd.notifyConnectionStatus.eConnectionStatus status = 1;
-  bool has_status() const;
+  // .BaseCmd.notifyConnectionStatus.eConnectionStatus status = 1;
   void clear_status();
   static const int kStatusFieldNumber = 1;
   ::BaseCmd::notifyConnectionStatus_eConnectionStatus status() const;
@@ -438,13 +411,10 @@ class notifyConnectionStatus : public ::google::protobuf::Message /* @@protoc_in
 
   // @@protoc_insertion_point(class_scope:BaseCmd.notifyConnectionStatus)
  private:
-  void set_has_status();
-  void clear_has_status();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   int status_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -475,13 +445,6 @@ class sUser_ePhoneNumber : public ::google::protobuf::Message /* @@protoc_insert
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const sUser_ePhoneNumber& default_instance();
 
@@ -543,8 +506,7 @@ class sUser_ePhoneNumber : public ::google::protobuf::Message /* @@protoc_insert
 
   // accessors -------------------------------------------------------
 
-  // required string number = 1;
-  bool has_number() const;
+  // string number = 1;
   void clear_number();
   static const int kNumberFieldNumber = 1;
   const ::std::string& number() const;
@@ -558,8 +520,7 @@ class sUser_ePhoneNumber : public ::google::protobuf::Message /* @@protoc_insert
   ::std::string* release_number();
   void set_allocated_number(::std::string* number);
 
-  // optional .BaseCmd.sUser.ePhoneType type = 2 [default = HOME];
-  bool has_type() const;
+  // .BaseCmd.sUser.ePhoneType type = 2;
   void clear_type();
   static const int kTypeFieldNumber = 2;
   ::BaseCmd::sUser_ePhoneType type() const;
@@ -567,16 +528,11 @@ class sUser_ePhoneNumber : public ::google::protobuf::Message /* @@protoc_insert
 
   // @@protoc_insertion_point(class_scope:BaseCmd.sUser.ePhoneNumber)
  private:
-  void set_has_number();
-  void clear_has_number();
-  void set_has_type();
-  void clear_has_type();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr number_;
   int type_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -607,13 +563,6 @@ class sUser : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const sUser& default_instance();
 
@@ -717,8 +666,7 @@ class sUser : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   const ::google::protobuf::RepeatedPtrField< ::BaseCmd::sUser_ePhoneNumber >&
       phones() const;
 
-  // required string name = 1;
-  bool has_name() const;
+  // string name = 1;
   void clear_name();
   static const int kNameFieldNumber = 1;
   const ::std::string& name() const;
@@ -732,8 +680,7 @@ class sUser : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // optional string email = 3;
-  bool has_email() const;
+  // string email = 3;
   void clear_email();
   static const int kEmailFieldNumber = 3;
   const ::std::string& email() const;
@@ -747,8 +694,7 @@ class sUser : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   ::std::string* release_email();
   void set_allocated_email(::std::string* email);
 
-  // required int32 id = 2;
-  bool has_id() const;
+  // int32 id = 2;
   void clear_id();
   static const int kIdFieldNumber = 2;
   ::google::protobuf::int32 id() const;
@@ -756,23 +702,13 @@ class sUser : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
 
   // @@protoc_insertion_point(class_scope:BaseCmd.sUser)
  private:
-  void set_has_name();
-  void clear_has_name();
-  void set_has_id();
-  void clear_has_id();
-  void set_has_email();
-  void clear_has_email();
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::BaseCmd::sUser_ePhoneNumber > phones_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr email_;
   ::google::protobuf::int32 id_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -803,13 +739,6 @@ class reqSignin : public ::google::protobuf::Message /* @@protoc_insertion_point
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const reqSignin& default_instance();
 
@@ -887,9 +816,8 @@ class reqSignin : public ::google::protobuf::Message /* @@protoc_insertion_point
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::BaseCmd::sUser > user_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -920,13 +848,6 @@ class rspSignin : public ::google::protobuf::Message /* @@protoc_insertion_point
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const rspSignin& default_instance();
 
@@ -988,8 +909,7 @@ class rspSignin : public ::google::protobuf::Message /* @@protoc_insertion_point
 
   // accessors -------------------------------------------------------
 
-  // required string name = 1;
-  bool has_name() const;
+  // string name = 1;
   void clear_name();
   static const int kNameFieldNumber = 1;
   const ::std::string& name() const;
@@ -1003,8 +923,7 @@ class rspSignin : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // required bool succ = 2;
-  bool has_succ() const;
+  // bool succ = 2;
   void clear_succ();
   static const int kSuccFieldNumber = 2;
   bool succ() const;
@@ -1012,19 +931,11 @@ class rspSignin : public ::google::protobuf::Message /* @@protoc_insertion_point
 
   // @@protoc_insertion_point(class_scope:BaseCmd.rspSignin)
  private:
-  void set_has_name();
-  void clear_has_name();
-  void set_has_succ();
-  void clear_has_succ();
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   bool succ_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -1055,13 +966,6 @@ class reqMove : public ::google::protobuf::Message /* @@protoc_insertion_point(c
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const reqMove& default_instance();
 
@@ -1123,15 +1027,13 @@ class reqMove : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  // required float forward = 1;
-  bool has_forward() const;
+  // float forward = 1;
   void clear_forward();
   static const int kForwardFieldNumber = 1;
   float forward() const;
   void set_forward(float value);
 
-  // required float angle = 2;
-  bool has_angle() const;
+  // float angle = 2;
   void clear_angle();
   static const int kAngleFieldNumber = 2;
   float angle() const;
@@ -1139,19 +1041,11 @@ class reqMove : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // @@protoc_insertion_point(class_scope:BaseCmd.reqMove)
  private:
-  void set_has_forward();
-  void clear_has_forward();
-  void set_has_angle();
-  void clear_has_angle();
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   float forward_;
   float angle_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -1182,13 +1076,6 @@ class rspMove : public ::google::protobuf::Message /* @@protoc_insertion_point(c
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const rspMove& default_instance();
 
@@ -1250,8 +1137,7 @@ class rspMove : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  // required string error = 1;
-  bool has_error() const;
+  // string error = 1;
   void clear_error();
   static const int kErrorFieldNumber = 1;
   const ::std::string& error() const;
@@ -1267,13 +1153,10 @@ class rspMove : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // @@protoc_insertion_point(class_scope:BaseCmd.rspMove)
  private:
-  void set_has_error();
-  void clear_has_error();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr error_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -1304,13 +1187,6 @@ class reqAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const reqAlarm& default_instance();
 
@@ -1372,8 +1248,7 @@ class reqAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // required string infomessage = 1;
-  bool has_infomessage() const;
+  // string infomessage = 1;
   void clear_infomessage();
   static const int kInfomessageFieldNumber = 1;
   const ::std::string& infomessage() const;
@@ -1389,13 +1264,10 @@ class reqAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // @@protoc_insertion_point(class_scope:BaseCmd.reqAlarm)
  private:
-  void set_has_infomessage();
-  void clear_has_infomessage();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr infomessage_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -1426,13 +1298,6 @@ class rspAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
     return *this;
   }
   #endif
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
   static const ::google::protobuf::Descriptor* descriptor();
   static const rspAlarm& default_instance();
 
@@ -1494,8 +1359,7 @@ class rspAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // required string error = 1;
-  bool has_error() const;
+  // string error = 1;
   void clear_error();
   static const int kErrorFieldNumber = 1;
   const ::std::string& error() const;
@@ -1511,13 +1375,10 @@ class rspAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // @@protoc_insertion_point(class_scope:BaseCmd.rspAlarm)
  private:
-  void set_has_error();
-  void clear_has_error();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::HasBits<1> _has_bits_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr error_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_BaseCmd_2eproto::TableStruct;
 };
 // ===================================================================
@@ -1531,32 +1392,22 @@ class rspAlarm : public ::google::protobuf::Message /* @@protoc_insertion_point(
 #endif  // __GNUC__
 // CmdType
 
-// required string type = 1;
-inline bool CmdType::has_type() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void CmdType::set_has_type() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void CmdType::clear_has_type() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// string type = 1;
 inline void CmdType::clear_type() {
   type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_type();
 }
 inline const ::std::string& CmdType::type() const {
   // @@protoc_insertion_point(field_get:BaseCmd.CmdType.type)
   return type_.GetNoArena();
 }
 inline void CmdType::set_type(const ::std::string& value) {
-  set_has_type();
+  
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.CmdType.type)
 }
 #if LANG_CXX11
 inline void CmdType::set_type(::std::string&& value) {
-  set_has_type();
+  
   type_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.CmdType.type)
@@ -1564,89 +1415,66 @@ inline void CmdType::set_type(::std::string&& value) {
 #endif
 inline void CmdType::set_type(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_type();
+  
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.CmdType.type)
 }
 inline void CmdType::set_type(const char* value, size_t size) {
-  set_has_type();
+  
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.CmdType.type)
 }
 inline ::std::string* CmdType::mutable_type() {
-  set_has_type();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.CmdType.type)
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CmdType::release_type() {
   // @@protoc_insertion_point(field_release:BaseCmd.CmdType.type)
-  if (!has_type()) {
-    return NULL;
-  }
-  clear_has_type();
-  return type_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void CmdType::set_allocated_type(::std::string* type) {
   if (type != NULL) {
-    set_has_type();
+    
   } else {
-    clear_has_type();
+    
   }
   type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.CmdType.type)
 }
 
-// required int32 size = 2;
-inline bool CmdType::has_size() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void CmdType::set_has_size() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void CmdType::clear_has_size() {
-  _has_bits_[0] &= ~0x00000008u;
-}
+// int32 size = 2;
 inline void CmdType::clear_size() {
   size_ = 0;
-  clear_has_size();
 }
 inline ::google::protobuf::int32 CmdType::size() const {
   // @@protoc_insertion_point(field_get:BaseCmd.CmdType.size)
   return size_;
 }
 inline void CmdType::set_size(::google::protobuf::int32 value) {
-  set_has_size();
+  
   size_ = value;
   // @@protoc_insertion_point(field_set:BaseCmd.CmdType.size)
 }
 
-// optional string fromip = 3;
-inline bool CmdType::has_fromip() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void CmdType::set_has_fromip() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void CmdType::clear_has_fromip() {
-  _has_bits_[0] &= ~0x00000002u;
-}
+// string fromip = 3;
 inline void CmdType::clear_fromip() {
   fromip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_fromip();
 }
 inline const ::std::string& CmdType::fromip() const {
   // @@protoc_insertion_point(field_get:BaseCmd.CmdType.fromip)
   return fromip_.GetNoArena();
 }
 inline void CmdType::set_fromip(const ::std::string& value) {
-  set_has_fromip();
+  
   fromip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.CmdType.fromip)
 }
 #if LANG_CXX11
 inline void CmdType::set_fromip(::std::string&& value) {
-  set_has_fromip();
+  
   fromip_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.CmdType.fromip)
@@ -1654,65 +1482,52 @@ inline void CmdType::set_fromip(::std::string&& value) {
 #endif
 inline void CmdType::set_fromip(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_fromip();
+  
   fromip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.CmdType.fromip)
 }
 inline void CmdType::set_fromip(const char* value, size_t size) {
-  set_has_fromip();
+  
   fromip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.CmdType.fromip)
 }
 inline ::std::string* CmdType::mutable_fromip() {
-  set_has_fromip();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.CmdType.fromip)
   return fromip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CmdType::release_fromip() {
   // @@protoc_insertion_point(field_release:BaseCmd.CmdType.fromip)
-  if (!has_fromip()) {
-    return NULL;
-  }
-  clear_has_fromip();
-  return fromip_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return fromip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void CmdType::set_allocated_fromip(::std::string* fromip) {
   if (fromip != NULL) {
-    set_has_fromip();
+    
   } else {
-    clear_has_fromip();
+    
   }
   fromip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fromip);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.CmdType.fromip)
 }
 
-// optional string toip = 4;
-inline bool CmdType::has_toip() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void CmdType::set_has_toip() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void CmdType::clear_has_toip() {
-  _has_bits_[0] &= ~0x00000004u;
-}
+// string toip = 4;
 inline void CmdType::clear_toip() {
   toip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_toip();
 }
 inline const ::std::string& CmdType::toip() const {
   // @@protoc_insertion_point(field_get:BaseCmd.CmdType.toip)
   return toip_.GetNoArena();
 }
 inline void CmdType::set_toip(const ::std::string& value) {
-  set_has_toip();
+  
   toip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.CmdType.toip)
 }
 #if LANG_CXX11
 inline void CmdType::set_toip(::std::string&& value) {
-  set_has_toip();
+  
   toip_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.CmdType.toip)
@@ -1720,34 +1535,31 @@ inline void CmdType::set_toip(::std::string&& value) {
 #endif
 inline void CmdType::set_toip(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_toip();
+  
   toip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.CmdType.toip)
 }
 inline void CmdType::set_toip(const char* value, size_t size) {
-  set_has_toip();
+  
   toip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.CmdType.toip)
 }
 inline ::std::string* CmdType::mutable_toip() {
-  set_has_toip();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.CmdType.toip)
   return toip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CmdType::release_toip() {
   // @@protoc_insertion_point(field_release:BaseCmd.CmdType.toip)
-  if (!has_toip()) {
-    return NULL;
-  }
-  clear_has_toip();
-  return toip_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return toip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void CmdType::set_allocated_toip(::std::string* toip) {
   if (toip != NULL) {
-    set_has_toip();
+    
   } else {
-    clear_has_toip();
+    
   }
   toip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), toip);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.CmdType.toip)
@@ -1757,27 +1569,16 @@ inline void CmdType::set_allocated_toip(::std::string* toip) {
 
 // notifyConnectionStatus
 
-// required .BaseCmd.notifyConnectionStatus.eConnectionStatus status = 1;
-inline bool notifyConnectionStatus::has_status() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void notifyConnectionStatus::set_has_status() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void notifyConnectionStatus::clear_has_status() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// .BaseCmd.notifyConnectionStatus.eConnectionStatus status = 1;
 inline void notifyConnectionStatus::clear_status() {
   status_ = 0;
-  clear_has_status();
 }
 inline ::BaseCmd::notifyConnectionStatus_eConnectionStatus notifyConnectionStatus::status() const {
   // @@protoc_insertion_point(field_get:BaseCmd.notifyConnectionStatus.status)
   return static_cast< ::BaseCmd::notifyConnectionStatus_eConnectionStatus >(status_);
 }
 inline void notifyConnectionStatus::set_status(::BaseCmd::notifyConnectionStatus_eConnectionStatus value) {
-  assert(::BaseCmd::notifyConnectionStatus_eConnectionStatus_IsValid(value));
-  set_has_status();
+  
   status_ = value;
   // @@protoc_insertion_point(field_set:BaseCmd.notifyConnectionStatus.status)
 }
@@ -1786,32 +1587,22 @@ inline void notifyConnectionStatus::set_status(::BaseCmd::notifyConnectionStatus
 
 // sUser_ePhoneNumber
 
-// required string number = 1;
-inline bool sUser_ePhoneNumber::has_number() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void sUser_ePhoneNumber::set_has_number() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void sUser_ePhoneNumber::clear_has_number() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// string number = 1;
 inline void sUser_ePhoneNumber::clear_number() {
   number_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_number();
 }
 inline const ::std::string& sUser_ePhoneNumber::number() const {
   // @@protoc_insertion_point(field_get:BaseCmd.sUser.ePhoneNumber.number)
   return number_.GetNoArena();
 }
 inline void sUser_ePhoneNumber::set_number(const ::std::string& value) {
-  set_has_number();
+  
   number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.sUser.ePhoneNumber.number)
 }
 #if LANG_CXX11
 inline void sUser_ePhoneNumber::set_number(::std::string&& value) {
-  set_has_number();
+  
   number_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.sUser.ePhoneNumber.number)
@@ -1819,60 +1610,46 @@ inline void sUser_ePhoneNumber::set_number(::std::string&& value) {
 #endif
 inline void sUser_ePhoneNumber::set_number(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_number();
+  
   number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.sUser.ePhoneNumber.number)
 }
 inline void sUser_ePhoneNumber::set_number(const char* value, size_t size) {
-  set_has_number();
+  
   number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.sUser.ePhoneNumber.number)
 }
 inline ::std::string* sUser_ePhoneNumber::mutable_number() {
-  set_has_number();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.sUser.ePhoneNumber.number)
   return number_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* sUser_ePhoneNumber::release_number() {
   // @@protoc_insertion_point(field_release:BaseCmd.sUser.ePhoneNumber.number)
-  if (!has_number()) {
-    return NULL;
-  }
-  clear_has_number();
-  return number_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return number_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void sUser_ePhoneNumber::set_allocated_number(::std::string* number) {
   if (number != NULL) {
-    set_has_number();
+    
   } else {
-    clear_has_number();
+    
   }
   number_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), number);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.sUser.ePhoneNumber.number)
 }
 
-// optional .BaseCmd.sUser.ePhoneType type = 2 [default = HOME];
-inline bool sUser_ePhoneNumber::has_type() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void sUser_ePhoneNumber::set_has_type() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void sUser_ePhoneNumber::clear_has_type() {
-  _has_bits_[0] &= ~0x00000002u;
-}
+// .BaseCmd.sUser.ePhoneType type = 2;
 inline void sUser_ePhoneNumber::clear_type() {
-  type_ = 1;
-  clear_has_type();
+  type_ = 0;
 }
 inline ::BaseCmd::sUser_ePhoneType sUser_ePhoneNumber::type() const {
   // @@protoc_insertion_point(field_get:BaseCmd.sUser.ePhoneNumber.type)
   return static_cast< ::BaseCmd::sUser_ePhoneType >(type_);
 }
 inline void sUser_ePhoneNumber::set_type(::BaseCmd::sUser_ePhoneType value) {
-  assert(::BaseCmd::sUser_ePhoneType_IsValid(value));
-  set_has_type();
+  
   type_ = value;
   // @@protoc_insertion_point(field_set:BaseCmd.sUser.ePhoneNumber.type)
 }
@@ -1881,32 +1658,22 @@ inline void sUser_ePhoneNumber::set_type(::BaseCmd::sUser_ePhoneType value) {
 
 // sUser
 
-// required string name = 1;
-inline bool sUser::has_name() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void sUser::set_has_name() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void sUser::clear_has_name() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// string name = 1;
 inline void sUser::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_name();
 }
 inline const ::std::string& sUser::name() const {
   // @@protoc_insertion_point(field_get:BaseCmd.sUser.name)
   return name_.GetNoArena();
 }
 inline void sUser::set_name(const ::std::string& value) {
-  set_has_name();
+  
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.sUser.name)
 }
 #if LANG_CXX11
 inline void sUser::set_name(::std::string&& value) {
-  set_has_name();
+  
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.sUser.name)
@@ -1914,89 +1681,66 @@ inline void sUser::set_name(::std::string&& value) {
 #endif
 inline void sUser::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_name();
+  
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.sUser.name)
 }
 inline void sUser::set_name(const char* value, size_t size) {
-  set_has_name();
+  
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.sUser.name)
 }
 inline ::std::string* sUser::mutable_name() {
-  set_has_name();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.sUser.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* sUser::release_name() {
   // @@protoc_insertion_point(field_release:BaseCmd.sUser.name)
-  if (!has_name()) {
-    return NULL;
-  }
-  clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void sUser::set_allocated_name(::std::string* name) {
   if (name != NULL) {
-    set_has_name();
+    
   } else {
-    clear_has_name();
+    
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.sUser.name)
 }
 
-// required int32 id = 2;
-inline bool sUser::has_id() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void sUser::set_has_id() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void sUser::clear_has_id() {
-  _has_bits_[0] &= ~0x00000004u;
-}
+// int32 id = 2;
 inline void sUser::clear_id() {
   id_ = 0;
-  clear_has_id();
 }
 inline ::google::protobuf::int32 sUser::id() const {
   // @@protoc_insertion_point(field_get:BaseCmd.sUser.id)
   return id_;
 }
 inline void sUser::set_id(::google::protobuf::int32 value) {
-  set_has_id();
+  
   id_ = value;
   // @@protoc_insertion_point(field_set:BaseCmd.sUser.id)
 }
 
-// optional string email = 3;
-inline bool sUser::has_email() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void sUser::set_has_email() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void sUser::clear_has_email() {
-  _has_bits_[0] &= ~0x00000002u;
-}
+// string email = 3;
 inline void sUser::clear_email() {
   email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_email();
 }
 inline const ::std::string& sUser::email() const {
   // @@protoc_insertion_point(field_get:BaseCmd.sUser.email)
   return email_.GetNoArena();
 }
 inline void sUser::set_email(const ::std::string& value) {
-  set_has_email();
+  
   email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.sUser.email)
 }
 #if LANG_CXX11
 inline void sUser::set_email(::std::string&& value) {
-  set_has_email();
+  
   email_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.sUser.email)
@@ -2004,34 +1748,31 @@ inline void sUser::set_email(::std::string&& value) {
 #endif
 inline void sUser::set_email(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_email();
+  
   email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.sUser.email)
 }
 inline void sUser::set_email(const char* value, size_t size) {
-  set_has_email();
+  
   email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.sUser.email)
 }
 inline ::std::string* sUser::mutable_email() {
-  set_has_email();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.sUser.email)
   return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* sUser::release_email() {
   // @@protoc_insertion_point(field_release:BaseCmd.sUser.email)
-  if (!has_email()) {
-    return NULL;
-  }
-  clear_has_email();
-  return email_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void sUser::set_allocated_email(::std::string* email) {
   if (email != NULL) {
-    set_has_email();
+    
   } else {
-    clear_has_email();
+    
   }
   email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.sUser.email)
@@ -2105,32 +1846,22 @@ reqSignin::user() const {
 
 // rspSignin
 
-// required string name = 1;
-inline bool rspSignin::has_name() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void rspSignin::set_has_name() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void rspSignin::clear_has_name() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// string name = 1;
 inline void rspSignin::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_name();
 }
 inline const ::std::string& rspSignin::name() const {
   // @@protoc_insertion_point(field_get:BaseCmd.rspSignin.name)
   return name_.GetNoArena();
 }
 inline void rspSignin::set_name(const ::std::string& value) {
-  set_has_name();
+  
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.rspSignin.name)
 }
 #if LANG_CXX11
 inline void rspSignin::set_name(::std::string&& value) {
-  set_has_name();
+  
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.rspSignin.name)
@@ -2138,59 +1869,46 @@ inline void rspSignin::set_name(::std::string&& value) {
 #endif
 inline void rspSignin::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_name();
+  
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.rspSignin.name)
 }
 inline void rspSignin::set_name(const char* value, size_t size) {
-  set_has_name();
+  
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.rspSignin.name)
 }
 inline ::std::string* rspSignin::mutable_name() {
-  set_has_name();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.rspSignin.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* rspSignin::release_name() {
   // @@protoc_insertion_point(field_release:BaseCmd.rspSignin.name)
-  if (!has_name()) {
-    return NULL;
-  }
-  clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void rspSignin::set_allocated_name(::std::string* name) {
   if (name != NULL) {
-    set_has_name();
+    
   } else {
-    clear_has_name();
+    
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.rspSignin.name)
 }
 
-// required bool succ = 2;
-inline bool rspSignin::has_succ() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void rspSignin::set_has_succ() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void rspSignin::clear_has_succ() {
-  _has_bits_[0] &= ~0x00000002u;
-}
+// bool succ = 2;
 inline void rspSignin::clear_succ() {
   succ_ = false;
-  clear_has_succ();
 }
 inline bool rspSignin::succ() const {
   // @@protoc_insertion_point(field_get:BaseCmd.rspSignin.succ)
   return succ_;
 }
 inline void rspSignin::set_succ(bool value) {
-  set_has_succ();
+  
   succ_ = value;
   // @@protoc_insertion_point(field_set:BaseCmd.rspSignin.succ)
 }
@@ -2199,50 +1917,30 @@ inline void rspSignin::set_succ(bool value) {
 
 // reqMove
 
-// required float forward = 1;
-inline bool reqMove::has_forward() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void reqMove::set_has_forward() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void reqMove::clear_has_forward() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// float forward = 1;
 inline void reqMove::clear_forward() {
   forward_ = 0;
-  clear_has_forward();
 }
 inline float reqMove::forward() const {
   // @@protoc_insertion_point(field_get:BaseCmd.reqMove.forward)
   return forward_;
 }
 inline void reqMove::set_forward(float value) {
-  set_has_forward();
+  
   forward_ = value;
   // @@protoc_insertion_point(field_set:BaseCmd.reqMove.forward)
 }
 
-// required float angle = 2;
-inline bool reqMove::has_angle() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void reqMove::set_has_angle() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void reqMove::clear_has_angle() {
-  _has_bits_[0] &= ~0x00000002u;
-}
+// float angle = 2;
 inline void reqMove::clear_angle() {
   angle_ = 0;
-  clear_has_angle();
 }
 inline float reqMove::angle() const {
   // @@protoc_insertion_point(field_get:BaseCmd.reqMove.angle)
   return angle_;
 }
 inline void reqMove::set_angle(float value) {
-  set_has_angle();
+  
   angle_ = value;
   // @@protoc_insertion_point(field_set:BaseCmd.reqMove.angle)
 }
@@ -2251,32 +1949,22 @@ inline void reqMove::set_angle(float value) {
 
 // rspMove
 
-// required string error = 1;
-inline bool rspMove::has_error() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void rspMove::set_has_error() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void rspMove::clear_has_error() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// string error = 1;
 inline void rspMove::clear_error() {
   error_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_error();
 }
 inline const ::std::string& rspMove::error() const {
   // @@protoc_insertion_point(field_get:BaseCmd.rspMove.error)
   return error_.GetNoArena();
 }
 inline void rspMove::set_error(const ::std::string& value) {
-  set_has_error();
+  
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.rspMove.error)
 }
 #if LANG_CXX11
 inline void rspMove::set_error(::std::string&& value) {
-  set_has_error();
+  
   error_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.rspMove.error)
@@ -2284,34 +1972,31 @@ inline void rspMove::set_error(::std::string&& value) {
 #endif
 inline void rspMove::set_error(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_error();
+  
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.rspMove.error)
 }
 inline void rspMove::set_error(const char* value, size_t size) {
-  set_has_error();
+  
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.rspMove.error)
 }
 inline ::std::string* rspMove::mutable_error() {
-  set_has_error();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.rspMove.error)
   return error_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* rspMove::release_error() {
   // @@protoc_insertion_point(field_release:BaseCmd.rspMove.error)
-  if (!has_error()) {
-    return NULL;
-  }
-  clear_has_error();
-  return error_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return error_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void rspMove::set_allocated_error(::std::string* error) {
   if (error != NULL) {
-    set_has_error();
+    
   } else {
-    clear_has_error();
+    
   }
   error_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), error);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.rspMove.error)
@@ -2321,32 +2006,22 @@ inline void rspMove::set_allocated_error(::std::string* error) {
 
 // reqAlarm
 
-// required string infomessage = 1;
-inline bool reqAlarm::has_infomessage() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void reqAlarm::set_has_infomessage() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void reqAlarm::clear_has_infomessage() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// string infomessage = 1;
 inline void reqAlarm::clear_infomessage() {
   infomessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_infomessage();
 }
 inline const ::std::string& reqAlarm::infomessage() const {
   // @@protoc_insertion_point(field_get:BaseCmd.reqAlarm.infomessage)
   return infomessage_.GetNoArena();
 }
 inline void reqAlarm::set_infomessage(const ::std::string& value) {
-  set_has_infomessage();
+  
   infomessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.reqAlarm.infomessage)
 }
 #if LANG_CXX11
 inline void reqAlarm::set_infomessage(::std::string&& value) {
-  set_has_infomessage();
+  
   infomessage_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.reqAlarm.infomessage)
@@ -2354,34 +2029,31 @@ inline void reqAlarm::set_infomessage(::std::string&& value) {
 #endif
 inline void reqAlarm::set_infomessage(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_infomessage();
+  
   infomessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.reqAlarm.infomessage)
 }
 inline void reqAlarm::set_infomessage(const char* value, size_t size) {
-  set_has_infomessage();
+  
   infomessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.reqAlarm.infomessage)
 }
 inline ::std::string* reqAlarm::mutable_infomessage() {
-  set_has_infomessage();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.reqAlarm.infomessage)
   return infomessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* reqAlarm::release_infomessage() {
   // @@protoc_insertion_point(field_release:BaseCmd.reqAlarm.infomessage)
-  if (!has_infomessage()) {
-    return NULL;
-  }
-  clear_has_infomessage();
-  return infomessage_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return infomessage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void reqAlarm::set_allocated_infomessage(::std::string* infomessage) {
   if (infomessage != NULL) {
-    set_has_infomessage();
+    
   } else {
-    clear_has_infomessage();
+    
   }
   infomessage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), infomessage);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.reqAlarm.infomessage)
@@ -2391,32 +2063,22 @@ inline void reqAlarm::set_allocated_infomessage(::std::string* infomessage) {
 
 // rspAlarm
 
-// required string error = 1;
-inline bool rspAlarm::has_error() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void rspAlarm::set_has_error() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void rspAlarm::clear_has_error() {
-  _has_bits_[0] &= ~0x00000001u;
-}
+// string error = 1;
 inline void rspAlarm::clear_error() {
   error_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_error();
 }
 inline const ::std::string& rspAlarm::error() const {
   // @@protoc_insertion_point(field_get:BaseCmd.rspAlarm.error)
   return error_.GetNoArena();
 }
 inline void rspAlarm::set_error(const ::std::string& value) {
-  set_has_error();
+  
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:BaseCmd.rspAlarm.error)
 }
 #if LANG_CXX11
 inline void rspAlarm::set_error(::std::string&& value) {
-  set_has_error();
+  
   error_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:BaseCmd.rspAlarm.error)
@@ -2424,34 +2086,31 @@ inline void rspAlarm::set_error(::std::string&& value) {
 #endif
 inline void rspAlarm::set_error(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  set_has_error();
+  
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:BaseCmd.rspAlarm.error)
 }
 inline void rspAlarm::set_error(const char* value, size_t size) {
-  set_has_error();
+  
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:BaseCmd.rspAlarm.error)
 }
 inline ::std::string* rspAlarm::mutable_error() {
-  set_has_error();
+  
   // @@protoc_insertion_point(field_mutable:BaseCmd.rspAlarm.error)
   return error_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* rspAlarm::release_error() {
   // @@protoc_insertion_point(field_release:BaseCmd.rspAlarm.error)
-  if (!has_error()) {
-    return NULL;
-  }
-  clear_has_error();
-  return error_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  
+  return error_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void rspAlarm::set_allocated_error(::std::string* error) {
   if (error != NULL) {
-    set_has_error();
+    
   } else {
-    clear_has_error();
+    
   }
   error_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), error);
   // @@protoc_insertion_point(field_set_allocated:BaseCmd.rspAlarm.error)

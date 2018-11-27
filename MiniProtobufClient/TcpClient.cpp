@@ -15,6 +15,7 @@ TcpClient::TcpClient(asio::io_context& io_context, std::shared_ptr<MessageRoute>
 
 void TcpClient::Connect(std::string ip, std::string port)
 {
+	closed = false;
 
 
 	tcp::resolver::query q(ip, port);
@@ -39,16 +40,32 @@ void TcpClient::connect_handler(
 	const asio::error_code& ec,
 	tcp::resolver::iterator i)
 {
-   	Receive();
+	connected = true;
 
+	io_context_.post(std::bind(&TcpClient::Receive, shared_from_this()));
 	io_context_.post(std::bind(&TcpClient::Process, shared_from_this()));
+
 }
 
+void TcpClient::Close()
+{
+	closed = true;
+	io_context_.stop();
+
+}
 void TcpClient::Process()
 {
-	m_spMessageRoute->Process();
 
-	io_context_.post(std::bind(&TcpClient::Process, shared_from_this()));
+	m_spMessageRoute->Process();
+	if (closed && connected)
+	{
+		std::cout << "end Process" << std::endl;
+	}
+	else
+	{
+		io_context_.post(std::bind(&TcpClient::Process, shared_from_this()));
+
+	}
 }
 
 
@@ -58,11 +75,18 @@ void TcpClient::Process()
 //}
 void TcpClient::SendData(asio::streambuf& buf)
 {
+	io_context_.post(std::bind(&TcpClient::Send, shared_from_this(), std::ref<asio::streambuf>(buf)));
+	
+}
+void TcpClient::Send(asio::streambuf& buf)
+{
+
 	totlasendwill += buf.size();
 	//std::cout << "Write buf will:" << buf.size() << "   total send will:" << totlasendwill << std::endl;
 	asio::async_write(socket, buf, std::bind(&TcpClient::write_handler, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
-}
 
+	//buf.consume(buf.size());
+}
 
 void TcpClient::Receive()
 {
@@ -71,16 +95,21 @@ void TcpClient::Receive()
 void TcpClient::read_handler(const asio::error_code& ec)
 {
 	ReadData(receivebuf);
-	Receive();
+	if (closed&& connected)
+	{
+
+		std::cout << "end Receive" << std::endl;
+	}
+	else
+	{
+		io_context_.post(std::bind(&TcpClient::Receive, shared_from_this()));
+	}
 }
 
 void TcpClient::write_handler(
 	const asio::error_code& ec,
 	std::size_t bytes_transferred)
 {
-	std::lock_guard<std::mutex> lock(m_spMessageRoute->mSendMutex);
-
-
 	std::lock_guard<std::mutex> glock(globalMutex);
 	if (!ec)
 	{

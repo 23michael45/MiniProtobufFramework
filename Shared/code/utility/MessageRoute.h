@@ -45,8 +45,8 @@ public:
 	
 	void Process();
 
-	std::mutex mSendMutex;
-	std::mutex mRecvMutex;
+	std::mutex mMutexRec;
+	std::mutex mMutexSend;
 private:
 
 	bool ProcessRecv(int& preTotalLen);
@@ -60,6 +60,7 @@ private:
 
 
 	char mTempBuffer[TEMP_BUFFER_SIZE];
+	char mTempBufferProcess[TEMP_BUFFER_SIZE];
 
 	size_t totalSend;
 	size_t totalSend2;
