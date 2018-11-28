@@ -9,6 +9,7 @@ using namespace std;
 using namespace BaseCmd;
 using namespace google;
 
+extern::mutex globalMutex;
 
 char head[] = { "pbh" };
 int hlen = 4;
@@ -234,8 +235,10 @@ bool MessageRoute::Send(protobuf::Message& msg)
 
 	//std::cout << stype << std::endl;
 
-	//totalSend += totallen;// mDataStreamSend.size();
-	//std::cout << "MessageRoute total send:" << totalSend << std::endl;
+
+	std::lock_guard<std::mutex> glock(globalMutex);
+	totalSend += totallen + 4;// mDataStreamSend.size();
+	std::cout << "MessageRoute total send:" << totalSend << std::endl;
 
 	return true;
 }

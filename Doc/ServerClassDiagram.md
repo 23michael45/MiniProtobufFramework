@@ -12,18 +12,18 @@ BaseSocketConnection <--> MessageRoute
 '/关联
 @startuml
 class MessageRoute
-class BaseMessageDisptcher
-MessageRoute --> BaseMessageDisptcher
+class BaseMessageDispatcher
+MessageRoute --> BaseMessageDispatcher
 @enduml
 
 '/继承
 @startuml
-BaseMessageDisptcher <|-- ServerMessageDispatcher
+BaseMessageDispatcher <|-- ServerMessageDispatcher
 @enduml
 
 '/聚合
 @startuml
-BaseMessageDisptcher o-- BaseProcessor
+BaseMessageDispatcher o-- BaseProcessor
 @enduml
 
 

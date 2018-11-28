@@ -3,6 +3,7 @@
 #include "asio/asio/include/asio.hpp"
 #include "asio/asio/include/asio/deadline_timer.hpp"
 
+std::mutex globalMutex;
 std::string make_daytime_string()
 {
 	using namespace std; // For time_t, time and ctime;

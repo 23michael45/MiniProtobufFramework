@@ -17,6 +17,7 @@ void SigninProcessor::Process(std::shared_ptr<MessageRoute> spRoute, std::shared
 	std::string name = p_req->user(0).name();
 
 
+	std::cout << "user name::" << name << std::endl;
 
 	//Rsp
 	rspSignin rsp;

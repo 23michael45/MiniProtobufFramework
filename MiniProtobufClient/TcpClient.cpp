@@ -81,8 +81,9 @@ void TcpClient::SendData(asio::streambuf& buf)
 void TcpClient::Send(asio::streambuf& buf)
 {
 
+	std::lock_guard<std::mutex> glock(globalMutex);
 	totlasendwill += buf.size();
-	//std::cout << "Write buf will:" << buf.size() << "   total send will:" << totlasendwill << std::endl;
+	std::cout << "Write buf will:" << buf.size() << "   total send will:" << totlasendwill << std::endl;
 	asio::async_write(socket, buf, std::bind(&TcpClient::write_handler, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
 
 	//buf.consume(buf.size());
@@ -110,13 +111,13 @@ void TcpClient::write_handler(
 	const asio::error_code& ec,
 	std::size_t bytes_transferred)
 {
-	std::lock_guard<std::mutex> glock(globalMutex);
 	if (!ec)
 	{
 	
 		totlasend += bytes_transferred;
 
 
+		std::lock_guard<std::mutex> glock(globalMutex);
 		std::cout << "TID:" << std::this_thread::get_id() << "   Write buf Success:" << bytes_transferred << "   total send:" << totlasend << std::endl;
 		
 	}
