@@ -25,7 +25,7 @@ void MoveProcessor::Process(std::shared_ptr<MessageRoute> spRoute, std::shared_p
 
 	//Rsp
 	rspMove rsp;
-	rsp.set_error("Move Ok No Error");
+	rsp.set_error("Move Function Success with No Error");
 
 	spRoute->Send(rsp);
 }

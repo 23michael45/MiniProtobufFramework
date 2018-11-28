@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package BaseCmd;
+
+
+message CmdType
+{
+	 string type = 1;
+	 int32 size = 2;
+	 string fromip = 3;
+	 string toip = 4;
+}
+
+
+
+message notifyConnectionStatus{
+	enum eConnectionStatus {
+		ConnectSuccess = 0;
+		ConnectFailed = 1;
+		ConnectionLost = 2;
+    }
+	 eConnectionStatus status = 1;
+}
+
+
+
+message sUser {
+   string name = 1;
+   int32 id = 2;
+   string email = 3;
+
+  enum ePhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message ePhoneNumber {
+     string number = 1;
+     ePhoneType type = 2;
+  }
+
+  repeated ePhoneNumber phones = 4;
+}
+
+message reqSignin {
+  repeated sUser user = 1;
+}
+message rspSignin
+{
+   string name = 1;
+   bool succ = 2;
+}
+
+
+message reqMove{
+	 float forward = 1;
+	 float angle = 2;
+}
+message rspMove{
+	 string error = 1;
+}
+message reqAlarm{
+	 string infomessage = 1;
+}
+message rspAlarm{
+
+	 string error = 1;
+}
+
+
