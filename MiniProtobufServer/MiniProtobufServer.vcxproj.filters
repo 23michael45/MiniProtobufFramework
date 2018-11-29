@@ -19,6 +19,9 @@
     <Filter Include="Logic">
       <UniqueIdentifier>{c4957acc-310c-4664-8bb0-7179127e0fdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HttpServer">
+      <UniqueIdentifier>{8be510e5-9ad6-440e-a07a-ccd3be4ac2f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TcpServer.h">
@@ -35,6 +38,33 @@
     </ClInclude>
     <ClInclude Include="..\Shared\code\utility\MessageRoute.h">
       <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\connection.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\connection_manager.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\header.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\http_server.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\mime_types.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\reply.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\request.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\request_handler.hpp">
+      <Filter>HttpServer</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer\request_parser.hpp">
+      <Filter>HttpServer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +94,27 @@
     </ClCompile>
     <ClCompile Include="..\Shared\code\utility\BaseMessageDispatcher.cpp">
       <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer\connection.cpp">
+      <Filter>HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer\connection_manager.cpp">
+      <Filter>HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer\http_server.cpp">
+      <Filter>HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer\mime_types.cpp">
+      <Filter>HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer\reply.cpp">
+      <Filter>HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer\request_handler.cpp">
+      <Filter>HttpServer</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer\request_parser.cpp">
+      <Filter>HttpServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

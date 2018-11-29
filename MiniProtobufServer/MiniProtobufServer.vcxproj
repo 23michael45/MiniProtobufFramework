@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)../Shared/;$(ProjectDir)../Shared/protobuf/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../Shared/;$(ProjectDir)../Shared/protobuf/src;$(ProjectDir)../Shared/asio/asio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>ASIO_STANDALONE ;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -125,6 +125,15 @@
     <ClInclude Include="..\Shared\code\utility\BaseSocketConnection.h" />
     <ClInclude Include="..\Shared\code\utility\MessageRoute.h" />
     <ClInclude Include="..\Shared\code\utility\Singleton.h" />
+    <ClInclude Include="HttpServer\connection.hpp" />
+    <ClInclude Include="HttpServer\connection_manager.hpp" />
+    <ClInclude Include="HttpServer\header.hpp" />
+    <ClInclude Include="HttpServer\http_server.hpp" />
+    <ClInclude Include="HttpServer\mime_types.hpp" />
+    <ClInclude Include="HttpServer\reply.hpp" />
+    <ClInclude Include="HttpServer\request.hpp" />
+    <ClInclude Include="HttpServer\request_handler.hpp" />
+    <ClInclude Include="HttpServer\request_parser.hpp" />
     <ClInclude Include="TcpServer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +141,13 @@
     <ClCompile Include="..\Shared\code\utility\BaseMessageDispatcher.cpp" />
     <ClCompile Include="..\Shared\code\utility\BaseSocketConnection.cpp" />
     <ClCompile Include="..\Shared\code\utility\MessageRoute.cpp" />
+    <ClCompile Include="HttpServer\connection.cpp" />
+    <ClCompile Include="HttpServer\connection_manager.cpp" />
+    <ClCompile Include="HttpServer\http_server.cpp" />
+    <ClCompile Include="HttpServer\mime_types.cpp" />
+    <ClCompile Include="HttpServer\reply.cpp" />
+    <ClCompile Include="HttpServer\request_handler.cpp" />
+    <ClCompile Include="HttpServer\request_parser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveProcessor.cpp" />
     <ClCompile Include="ServerMessageDispatcher.cpp" />
