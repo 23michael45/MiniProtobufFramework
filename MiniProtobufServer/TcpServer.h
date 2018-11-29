@@ -47,6 +47,11 @@ public:
 	void WorkerThreadCallback(std::shared_ptr<asio::io_context> ios);
 
 private:
+
+
+	std::mutex socketSendMutex;
+	std::mutex socketRecvMutex;//Receive is Sequence Operation,donot use mutex;
+
 	tcp::socket socket_;
 	asio::streambuf input_buffer_;
 	asio::io_context& io_context_;

@@ -2,8 +2,7 @@
 #include "code/utility/BaseMessageDispatcher.h"
 #include "ClientMessageDispatcher.h"
 
-std::mutex globalMutex;
-
+extern std::mutex gSocketSendMutex;
 TcpClient::TcpClient(asio::io_context& io_context, std::shared_ptr<MessageRoute> spmr) :
 	BaseSocketConnection(spmr), io_context_(io_context), socket(io_context), r(io_context)
 {
@@ -81,7 +80,8 @@ void TcpClient::SendData(asio::streambuf& buf)
 void TcpClient::Send(asio::streambuf& buf)
 {
 
-	std::lock_guard<std::mutex> glock(globalMutex);
+	std::lock_guard<std::mutex> lock(gSocketSendMutex);
+	//std::lock_guard<std::mutex> glock(socketSendMutex);
 	totlasendwill += buf.size();
 	std::cout << "Write buf will:" << buf.size() << "   total send will:" << totlasendwill << std::endl;
 	asio::async_write(socket, buf, std::bind(&TcpClient::write_handler, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
@@ -91,6 +91,7 @@ void TcpClient::Send(asio::streambuf& buf)
 
 void TcpClient::Receive()
 {
+
 	asio::async_read(socket, receivebuf, asio::transfer_at_least(1), bind(&TcpClient::read_handler, shared_from_this(), std::placeholders::_1));
 }
 void TcpClient::read_handler(const asio::error_code& ec)
@@ -117,7 +118,6 @@ void TcpClient::write_handler(
 		totlasend += bytes_transferred;
 
 
-		std::lock_guard<std::mutex> glock(globalMutex);
 		std::cout << "TID:" << std::this_thread::get_id() << "   Write buf Success:" << bytes_transferred << "   total send:" << totlasend << std::endl;
 		
 	}

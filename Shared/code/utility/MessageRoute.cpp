@@ -9,7 +9,9 @@ using namespace std;
 using namespace BaseCmd;
 using namespace google;
 
-extern::mutex globalMutex;
+
+std::mutex gSocketSendMutex;
+std::mutex gSocketRecvMutex;//Receive is Sequence Operation,donot use mutex;
 
 char head[] = { "pbh" };
 int hlen = 4;
@@ -200,7 +202,7 @@ bool MessageRoute::ProcessRecv(int& preTotalLen)
 bool MessageRoute::Send(protobuf::Message& msg)
 {
 
-	std::lock_guard<std::mutex> lock(mMutexSend);
+	std::lock_guard<std::mutex> lock(gSocketSendMutex);
 
 	string stype = msg.GetTypeName();
 
@@ -230,13 +232,7 @@ bool MessageRoute::Send(protobuf::Message& msg)
 	msg.SerializeToCodedStream(&cos);
 
 
-	/*delete cos;
-	delete oos;*/
 
-	//std::cout << stype << std::endl;
-
-
-	std::lock_guard<std::mutex> glock(globalMutex);
 	totalSend += totallen + 4;// mDataStreamSend.size();
 	std::cout << "MessageRoute total send:" << totalSend << std::endl;
 
@@ -247,40 +243,11 @@ bool MessageRoute::Send(protobuf::Message& msg)
 bool MessageRoute::ProcessSend()
 {
 	
-	std::lock_guard<std::mutex> lock(mMutexSend);
 	if (mDataStreamSend.size() == 0)
 	{
 		return false;
 	}
-	//std::cout << mDataStreamSend.size() << std::endl;
-
-	//auto spbuf = std::shared_ptr<asio::streambuf>(new asio::streambuf);
-
-
-	//totalSend2 += mDataStreamSend.size();
-	//std::cout << "MessageRoute total send2:" << totalSend2 << std::endl;
 	m_fSendFunc(mDataStreamSend);
 
-
-	//asio::streambuf buf;
-
-	//std::istream is(&mDataStreamSend);
-
-	//std::ostream oshold(&buf);
-	//auto oos = new google::protobuf::io::OstreamOutputStream(&oshold);
-	//auto cos = new google::protobuf::io::CodedOutputStream(oos);
-
-
-	//while (mDataStreamSend.size() > 0)
-	//{
-	//	int readSize = std::min((int)(mDataStreamSend.size()), (int)TEMP_BUFFER_SIZE);
-	//	is.read(mTempBuffer, readSize);
-
-	//	cos->WriteRaw(mTempBuffer, readSize);
-	//	oshold.flush();
-	//}
-
-	//delete cos;
-	//delete oos;
 	return true;
 }

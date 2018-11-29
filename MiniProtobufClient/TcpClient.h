@@ -31,7 +31,6 @@ public:
 
 private:
 
-	std::mutex socketMutex;
 
 	tcp::socket socket;
 	tcp::resolver r;

@@ -3,7 +3,7 @@
 #include "asio/asio/include/asio.hpp"
 #include "asio/asio/include/asio/deadline_timer.hpp"
 
-std::mutex globalMutex;
+extern std::mutex gSocketSendMutex;
 std::string make_daytime_string()
 {
 	using namespace std; // For time_t, time and ctime;
@@ -115,15 +115,15 @@ void TcpConnection::SendData(asio::streambuf& buf)
 }
 void TcpConnection::Send(asio::streambuf& buf)
 {
+
+	std::lock_guard<std::mutex> lock(gSocketSendMutex);
 	asio::async_write(socket_, buf, std::bind(&TcpConnection::handle_write, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
-	buf.consume(buf.size());
+
 }
 // When stream is received, handle the message from the client
 void TcpConnection::handle_read(const asio::error_code& ec)
 {
-
-	//std::lock_guard<std::mutex> lock(m_spMessageRoute->mRecvMutex);
-	
+		
 	if (!ec)
 	{
 		totalrec += input_buffer_.size();
